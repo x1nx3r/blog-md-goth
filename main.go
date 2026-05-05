@@ -40,9 +40,15 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Compress(5))
 
-	// Static files from centralized embedded FS
+	// Static files from centralized embedded FS with long-lived caching
 	staticFS, _ := fs.Sub(assets.Static, "static")
-	r.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))))
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.FS(staticFS)))
+	r.With(func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
+			next.ServeHTTP(w, r)
+		})
+	}).Handle("/static/*", staticHandler)
 
 	// Home page
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {

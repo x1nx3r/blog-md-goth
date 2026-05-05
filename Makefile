@@ -6,7 +6,7 @@ templ:
 
 # Build Tailwind CSS
 tailwind:
-	npx @tailwindcss/cli -i static/css/styles.css -o static/css/tailwind.css
+	npx @tailwindcss/cli -i internal/assets/static/css/styles.css -o internal/assets/static/css/tailwind.css --minify
 
 # Run the development server
 run: templ

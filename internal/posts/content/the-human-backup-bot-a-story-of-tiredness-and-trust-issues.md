@@ -42,7 +42,7 @@ Instead, I used the. I threw the whole thing behind a Cloudflare Access tunnel. 
 
 ### The Verdict: Less Annoyed
 The UI is blue. Deep, high-contrast, terminal blue. It’s not a "design choice"—I just picked the first hex codes that didn't hurt my eyes in a dark room and I'm never changing them. Here's a screenshoot if you wanna look at it.
-![S3 Browser Screenshot](/s3-browser-screenshot.png)
+![S3 Browser Screenshot](/static/s3-browser-screenshot.webp)
 It renames `.dmp` files to `.sql` because file extensions are just suggestions. It streams files so my laptop doesn't explode. And most importantly, I am no longer a backup bot. The team can find their own SQL dumps, compare their own disasters, and I can finally go back to whatever I was doing before someone asked me for a file.
 
 If you’re the person in your group who’s tired of being the "Server Guy," feel free to steal the repo. It's not a masterpiece, but it’ll save you a few pings. Or just write something better and tell me about it.
