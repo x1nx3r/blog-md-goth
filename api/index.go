@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"blog-gotth/internal/assets"
 	"blog-gotth/internal/posts"
 	"blog-gotth/templates"
 
@@ -34,6 +35,10 @@ func init() {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	router := chi.NewRouter()
+
+	// Static files from centralized embedded FS (for Vercel)
+	staticFS, _ := fs.Sub(assets.Static, "static")
+	router.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))))
 
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		now := time.Now()

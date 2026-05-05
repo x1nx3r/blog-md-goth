@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"blog-gotth/internal/assets"
 	"blog-gotth/internal/posts"
 	"blog-gotth/templates"
 
@@ -19,7 +20,7 @@ import (
 func main() {
 	// Default to embedded posts
 	var postsFS fs.FS = posts.GetEmbeddedFS()
-	contentDir := "." // Root of the embedded FS
+	contentDir := "."
 
 	// Allow override for local development
 	if env := os.Getenv("CONTENT_DIR"); env != "" {
@@ -39,9 +40,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Compress(5))
 
-	// Static files
-	fsHandler := http.FileServer(http.Dir("static"))
-	r.Handle("/static/*", http.StripPrefix("/static/", fsHandler))
+	// Static files from centralized embedded FS
+	staticFS, _ := fs.Sub(assets.Static, "static")
+	r.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))))
 
 	// Home page
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
