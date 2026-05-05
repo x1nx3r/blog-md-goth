@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 
 	"blog-gotth/internal/posts"
@@ -17,26 +17,31 @@ import (
 )
 
 func main() {
-	// Resolve content directory
-	contentDir := filepath.Join("content", "posts")
+	// Default to embedded posts
+	var postsFS fs.FS = posts.GetEmbeddedFS()
+	contentDir := "." // Root of the embedded FS
+
+	// Allow override for local development
 	if env := os.Getenv("CONTENT_DIR"); env != "" {
-		contentDir = env
+		log.Printf("Overriding content directory with: %s", env)
+		postsFS = os.DirFS(env)
+		contentDir = "."
 	}
 
 	// Load all posts at startup
-	allPosts, err := posts.LoadAllPosts(contentDir)
+	allPosts, err := posts.LoadAllPosts(postsFS, contentDir)
 	if err != nil {
 		log.Fatalf("Failed to load posts: %v", err)
 	}
-	log.Printf("Loaded %d posts from %s", len(allPosts), contentDir)
+	log.Printf("Loaded %d posts", len(allPosts))
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Compress(5))
 
 	// Static files
-	fs := http.FileServer(http.Dir("static"))
-	r.Handle("/static/*", http.StripPrefix("/static/", fs))
+	fsHandler := http.FileServer(http.Dir("static"))
+	r.Handle("/static/*", http.StripPrefix("/static/", fsHandler))
 
 	// Home page
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {

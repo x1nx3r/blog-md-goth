@@ -2,9 +2,9 @@ package handler
 
 import (
 	"fmt"
+	"io/fs"
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 
 	"blog-gotth/internal/posts"
@@ -17,13 +17,16 @@ import (
 var allPosts []posts.Post
 
 func init() {
-	contentDir := os.Getenv("CONTENT_DIR")
-	if contentDir == "" {
-		contentDir = filepath.Join("content", "posts")
+	var postsFS fs.FS = posts.GetEmbeddedFS()
+	contentDir := "."
+
+	if env := os.Getenv("CONTENT_DIR"); env != "" {
+		postsFS = os.DirFS(env)
+		contentDir = "."
 	}
 
 	var err error
-	allPosts, err = posts.LoadAllPosts(contentDir)
+	allPosts, err = posts.LoadAllPosts(postsFS, contentDir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "warning: failed to load posts: %v\n", err)
 	}

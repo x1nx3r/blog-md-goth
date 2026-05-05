@@ -2,7 +2,9 @@ package posts
 
 import (
 	"bytes"
+	"embed"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -14,6 +16,19 @@ import (
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 )
+
+//go:embed content/*.md
+var embeddedFS embed.FS
+
+// GetEmbeddedFS returns the embedded filesystem for posts, rooted at the content directory.
+func GetEmbeddedFS() fs.FS {
+	f, err := fs.Sub(embeddedFS, "content")
+	if err != nil {
+		// This should never happen if the go:embed is correct
+		return embeddedFS
+	}
+	return f
+}
 
 // Post represents a blog post with metadata and rendered HTML content.
 type Post struct {
@@ -81,9 +96,9 @@ func FormatDate(t time.Time) string {
 	return t.Format("January 2, 2006")
 }
 
-// LoadPost reads a single markdown file and returns a Post.
-func LoadPost(filePath string) (Post, error) {
-	f, err := os.Open(filePath)
+// LoadPost reads a single markdown file from an fs.FS and returns a Post.
+func LoadPost(fds fs.FS, filePath string) (Post, error) {
+	f, err := fds.Open(filePath)
 	if err != nil {
 		return Post{}, fmt.Errorf("open post %s: %w", filePath, err)
 	}
@@ -140,9 +155,9 @@ func LoadPost(filePath string) (Post, error) {
 	}, nil
 }
 
-// LoadAllPosts reads all .md files from the given directory, sorted newest first.
-func LoadAllPosts(dir string) ([]Post, error) {
-	entries, err := os.ReadDir(dir)
+// LoadAllPosts reads all .md files from the given fs.FS and directory, sorted newest first.
+func LoadAllPosts(fds fs.FS, dir string) ([]Post, error) {
+	entries, err := fs.ReadDir(fds, dir)
 	if err != nil {
 		return nil, fmt.Errorf("read posts dir: %w", err)
 	}
@@ -152,7 +167,7 @@ func LoadAllPosts(dir string) ([]Post, error) {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".md") {
 			continue
 		}
-		post, err := LoadPost(filepath.Join(dir, entry.Name()))
+		post, err := LoadPost(fds, filepath.Join(dir, entry.Name()))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "warning: skipping %s: %v\n", entry.Name(), err)
 			continue
