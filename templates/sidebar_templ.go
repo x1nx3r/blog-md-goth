@@ -39,67 +39,71 @@ func Sidebar(wirePosts []posts.PostMeta) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"newspaper-ink-specks newspaper-text\"><div class=\"newspaper-separator mb-4\"></div><span class=\"newspaper-section-label\">News Wire</span><div id=\"wire-list\" hx-get=\"/api/wire-posts\" hx-trigger=\"every 30s\" hx-swap=\"outerHTML\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		if len(wirePosts) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"newspaper-ink-specks newspaper-text\"><div class=\"newspaper-separator mb-4\"></div><span class=\"newspaper-section-label\">News Wire</span><ul class=\"space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<ul class=\"space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, post := range wirePosts {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<li class=\"border-b border-dashed border-gray-300 pb-2 last:border-none last:pb-0\"><a href=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"border-b border-dashed border-gray-300 pb-2 last:border-none last:pb-0\"><a href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var2 templ.SafeURL
 				templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/post/" + post.Slug))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 15, Col: 52}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 16, Col: 53}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" class=\"flex flex-col gap-1 hover:text-black transition-colors\"><span class=\"text-xs uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" class=\"flex flex-col gap-1 hover:text-black transition-colors\"><span class=\"text-xs uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(post.DateStr)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 17, Col: 23}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 18, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</span> <span class=\"font-semibold text-black newspaper-headline text-base\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</span> <span class=\"font-semibold text-black newspaper-headline text-base\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 19, Col: 88}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 20, Col: 89}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</span></a></li>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</span></a></li>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</ul></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</ul>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<div class=\"newspaper-ink-specks newspaper-text\"><div class=\"newspaper-separator mb-4\"></div><span class=\"newspaper-section-label\">News Wire</span><p class=\"markdown-body text-xs text-gray-700 newspaper-tight\">Telegraph lines are quiet tonight. Drop the editor a note if you have a scoop worth printing.</p></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<p class=\"markdown-body text-xs text-gray-700 newspaper-tight\">Telegraph lines are quiet tonight. Drop the editor a note if you have a scoop worth printing.</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"newspaper-ad newspaper-ink-specks\"><div class=\"newspaper-ad-heading\">Developer For Hire</div><div class=\"newspaper-ad-divider\"></div><p class=\"text-xs uppercase tracking-widest text-gray-700 newspaper-smallcaps newspaper-text\">Full-Stack Development &bull; Cloud Solutions &bull; DevOps Expertise</p><div class=\"newspaper-ad-price\">$15<span class=\"text-base\">/hour</span></div><p class=\"text-sm newspaper-tight newspaper-text\"><strong>Specializing in:</strong> Go, HTMX, Next.js, React, Node.js, Python, TypeScript, Docker, Firebase, Cloudflare &amp; Linux systems.</p><div class=\"newspaper-ad-divider mt-3\"></div><p class=\"text-xs newspaper-tight newspaper-text\">Ready to tackle your next project. Contact through <span class=\"newspaper-ink-underline\">GitHub</span> or direct mail above.</p></div></aside>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</div></div><div class=\"newspaper-ad newspaper-ink-specks\"><div class=\"newspaper-ad-heading\">Developer For Hire</div><div class=\"newspaper-ad-divider\"></div><p class=\"text-xs uppercase tracking-widest text-gray-700 newspaper-smallcaps newspaper-text\">Full-Stack Development &bull; Cloud Solutions &bull; DevOps Expertise</p><div class=\"newspaper-ad-price\">$15<span class=\"text-base\">/hour</span></div><p class=\"text-sm newspaper-tight newspaper-text\"><strong>Specializing in:</strong> Go, HTMX, Next.js, React, Node.js, Python, TypeScript, Docker, Firebase, Cloudflare &amp; Linux systems.</p><div class=\"newspaper-ad-divider mt-3\"></div><p class=\"text-xs newspaper-tight newspaper-text\">Ready to tackle your next project. Contact through <span class=\"newspaper-ink-underline\">GitHub</span> or direct mail above.</p></div></aside>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -149,79 +153,79 @@ func SidebarBox() templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<aside class=\"space-y-8 text-sm newspaper-text newspaper-vintage-text\"><section class=\"newspaper-ink-specks\"><span class=\"newspaper-section-label\">My Socials</span><ul class=\"space-y-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<aside class=\"space-y-8 text-sm newspaper-text newspaper-vintage-text\"><section class=\"newspaper-ink-specks\"><span class=\"newspaper-section-label\">My Socials</span><ul class=\"space-y-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, link := range socialLinks {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<li class=\"flex items-center justify-between border-b border-dashed border-gray-300 pb-2 last:border-none\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<li class=\"flex items-center justify-between border-b border-dashed border-gray-300 pb-2 last:border-none\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 templ.SafeURL
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(link.Href))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 81, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 79, Col: 38}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"flex items-center gap-3 hover:text-black transition-colors newspaper-smallcaps tracking-[0.3em] text-gray-700 newspaper-text\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"flex items-center gap-3 hover:text-black transition-colors newspaper-smallcaps tracking-[0.3em] text-gray-700 newspaper-text\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(link.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 86, Col: 19}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 84, Col: 19}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</a> <a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</a> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 templ.SafeURL
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(link.Href))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 89, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 87, Col: 38}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[0.65rem] uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps hover:text-black transition-colors\">Open</a></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[0.65rem] uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps hover:text-black transition-colors\">Open</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</ul></section><section class=\"newspaper-ink-specks\"><span class=\"newspaper-section-label\">Tech Stacks</span><div class=\"grid grid-cols-2 gap-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "</ul></section><section class=\"newspaper-ink-specks\"><span class=\"newspaper-section-label\">Tech Stacks</span><div class=\"grid grid-cols-2 gap-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, tech := range techStack {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"flex items-center gap-3 px-1 py-2 text-gray-700 newspaper-text newspaper-vintage-text\"><span class=\"text-xs uppercase tracking-[0.2em] newspaper-smallcaps\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"flex items-center gap-3 px-1 py-2 text-gray-700 newspaper-text newspaper-vintage-text\"><span class=\"text-xs uppercase tracking-[0.2em] newspaper-smallcaps\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(tech)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 106, Col: 13}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 104, Col: 13}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</span></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</span></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</div></section></aside>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</div></section></aside>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

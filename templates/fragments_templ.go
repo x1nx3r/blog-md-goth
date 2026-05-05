@@ -33,7 +33,7 @@ func WireFragment(wirePosts []posts.PostMeta) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if len(wirePosts) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<ul class=\"space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<ul id=\"wire-list\" hx-get=\"/api/wire-posts\" hx-trigger=\"every 30s\" hx-swap=\"outerHTML\" class=\"space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -87,7 +87,7 @@ func WireFragment(wirePosts []posts.PostMeta) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<p class=\"text-xs text-gray-400 italic\">No dispatches on the wire.</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<p id=\"wire-list\" hx-get=\"/api/wire-posts\" hx-trigger=\"every 30s\" hx-swap=\"outerHTML\" class=\"text-xs text-gray-400 italic\">No dispatches on the wire.</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

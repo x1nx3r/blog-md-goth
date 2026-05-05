@@ -5,32 +5,30 @@ import "blog-gotth/internal/posts"
 templ Sidebar(wirePosts []posts.PostMeta) {
 	<aside class="lg:col-span-1 space-y-6">
 		@SidebarBox()
-		if len(wirePosts) > 0 {
-			<div class="newspaper-ink-specks newspaper-text">
-				<div class="newspaper-separator mb-4"></div>
-				<span class="newspaper-section-label">News Wire</span>
-				<ul class="space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text">
-					for _, post := range wirePosts {
-						<li class="border-b border-dashed border-gray-300 pb-2 last:border-none last:pb-0">
-							<a href={ templ.SafeURL("/post/" + post.Slug) } class="flex flex-col gap-1 hover:text-black transition-colors">
-								<span class="text-xs uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps">
-									{ post.DateStr }
-								</span>
-								<span class="font-semibold text-black newspaper-headline text-base">{ post.Title }</span>
-							</a>
-						</li>
-					}
-				</ul>
+		<div class="newspaper-ink-specks newspaper-text">
+			<div class="newspaper-separator mb-4"></div>
+			<span class="newspaper-section-label">News Wire</span>
+			<div id="wire-list" hx-get="/api/wire-posts" hx-trigger="every 30s" hx-swap="outerHTML">
+				if len(wirePosts) > 0 {
+					<ul class="space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text">
+						for _, post := range wirePosts {
+							<li class="border-b border-dashed border-gray-300 pb-2 last:border-none last:pb-0">
+								<a href={ templ.SafeURL("/post/" + post.Slug) } class="flex flex-col gap-1 hover:text-black transition-colors">
+									<span class="text-xs uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps">
+										{ post.DateStr }
+									</span>
+									<span class="font-semibold text-black newspaper-headline text-base">{ post.Title }</span>
+								</a>
+							</li>
+						}
+					</ul>
+				} else {
+					<p class="markdown-body text-xs text-gray-700 newspaper-tight">
+						Telegraph lines are quiet tonight. Drop the editor a note if you have a scoop worth printing.
+					</p>
+				}
 			</div>
-		} else {
-			<div class="newspaper-ink-specks newspaper-text">
-				<div class="newspaper-separator mb-4"></div>
-				<span class="newspaper-section-label">News Wire</span>
-				<p class="markdown-body text-xs text-gray-700 newspaper-tight">
-					Telegraph lines are quiet tonight. Drop the editor a note if you have a scoop worth printing.
-				</p>
-			</div>
-		}
+		</div>
 		<div class="newspaper-ad newspaper-ink-specks">
 			<div class="newspaper-ad-heading">Developer For Hire</div>
 			<div class="newspaper-ad-divider"></div>
