@@ -48,18 +48,13 @@ templ Layout(seo SEO) {
 			<meta name="twitter:card" content="summary_large_image"/>
 			<meta name="twitter:title" content={ seo.Title }/>
 			<meta name="twitter:description" content={ seo.Description }/>
-			<!-- Fonts -->
-			<link rel="stylesheet" href="/static/fonts/google-fonts.css"/>
 			<!-- Icons -->
 			<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png"/>
 			<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png"/>
 			<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png"/>
 			<link rel="manifest" href="/static/site.webmanifest"/>
-			<!-- HTMX -->
-			<script src="/static/js/htmx.min.js"></script>
-			<!-- Styles -->
-			<link rel="stylesheet" href="/static/css/tailwind.css"/>
-			<link rel="stylesheet" href="/static/css/newspaper.css"/>
+			<!-- Styles & Fonts -->
+			<link rel="stylesheet" href="/static/css/bundle.css"/>
 			<!-- Structured Data -->
 			<script type="application/ld+json">
 				{
@@ -76,6 +71,7 @@ templ Layout(seo SEO) {
 		</head>
 		<body class="antialiased min-h-screen bg-[#f6f1e7] text-black">
 			{ children... }
+			<script src="/static/js/htmx.min.js" defer></script>
 		</body>
 	</html>
 }
@@ -101,21 +97,17 @@ templ LayoutPost(seo SEO) {
 			<meta name="twitter:card" content="summary_large_image"/>
 			<meta name="twitter:title" content={ seo.Title }/>
 			<meta name="twitter:description" content={ seo.Description }/>
-			<!-- Fonts -->
-			<link rel="stylesheet" href="/static/fonts/google-fonts.css"/>
 			<!-- Icons -->
 			<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png"/>
 			<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png"/>
 			<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png"/>
 			<link rel="manifest" href="/static/site.webmanifest"/>
-			<!-- HTMX -->
-			<script src="/static/js/htmx.min.js"></script>
-			<!-- Styles -->
-			<link rel="stylesheet" href="/static/css/tailwind.css"/>
-			<link rel="stylesheet" href="/static/css/newspaper.css"/>
+			<!-- Styles & Fonts -->
+			<link rel="stylesheet" href="/static/css/bundle.css"/>
 		</head>
 		<body class="antialiased min-h-screen bg-[#f6f1e7] text-black">
 			{ children... }
+			<script src="/static/js/htmx.min.js" defer></script>
 		</body>
 	</html>
 }
