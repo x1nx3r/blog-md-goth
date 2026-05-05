@@ -19,7 +19,19 @@ The result is an LCP of 0.6s, a 99 Performance score, and a site that loads so a
 
 React has this exhausting habit of looking at the perfectly functional HTML the server already sent, waking up, and deciding, "No, I need to control this." It then burns 300ms of CPU time marking its territory.
 
-For a newspaper theme, this is an insult. A newspaper doesn't "hydrate." It’s ink on paper. It sits there and works. I wanted the digital equivalent of a morning edition—static, uncompromising, and completely stripped of VDOM overhead. I just needed pure HTML and CSS that didn't weigh as much as an Electron app.
+For a newspaper theme, this is an insult. A newspaper doesn't "hydrate." It’s ink on paper. It sits there and works. I wanted the digital equivalent of a morning edition—static, uncompromising, and completely stripped of VDOM overhead. I just needed pure HTML and CSS that didn't weigh as much as an Electron app. 
+
+In my old Next.js setup, I had `react-markdown`, `rehype-raw`, and `remark-gfm` all fighting for CPU cycles just to turn a string into a list item. It was a 280MB `node_modules` grave just to host a few thoughts. Now? I have a 14MB binary that doesn't even know what a "Node" is.
+
+### Why Not a "Lightweight" Framework?
+
+People usually ask: *"Why didn't you just use Hugo? Or Astro? Or Jekyll?"*
+
+Sane people use those. Hugo is incredibly fast. Astro is brilliant at stripping out JS. But I didn't want "sane." I wanted "outrageous." 
+
+If I used Astro, I'd still be in the JavaScript ecosystem. I'd still be dealing with `npm install`, `package-lock.json` conflicts, and a build pipeline that feels like a Rube Goldberg machine. If I used Hugo, I’d be restricted by its templating engine and its specific way of doing things. 
+
+I wanted to own the engine. I wanted to write Go because Go is what I use when I want things to stay up and run fast. Building a custom blog engine is the ultimate act of "aesthetic procrastination"—it’s doing something incredibly complex just to achieve something simple, but doing it exactly your way. I didn't want a "blog framework"; I wanted a printing press I built myself with scrap metal and spite.
 
 ### Avoiding node_modules
 
@@ -29,7 +41,7 @@ Go is the engine. It compiles down to a single binary. There’s no dependency h
 
 Templ is essentially JSX for gophers, but it compiles into pure Go code. No diffing, no runtime overhead—it just spits out strings and dies. Paired with Tailwind v4 (minified to within an inch of its life), it’s exactly the kind of strict, compiler-enforced environment I wanted.
 
-And HTMX? Honestly, it’s barely doing anything. I have it polling for a "News Wire" in the sidebar mostly for the aesthetic. If I stripped it out tomorrow, the site would still be entirely functional. It’s a fancy sticker on a typewriter.
+And HTMX? Honestly, it’s barely doing anything. I have it polling for a "News Wire" in the sidebar mostly for the aesthetic. If I stripped it out tomorrow, the site would still be entirely functional. It’s a fancy sticker on a typewriter. It provides just enough "live" feeling to keep the newspaper vibe alive without requiring a single line of client-side logic from me.
 
 ### The Doomsday Approach to Assets
 
@@ -54,9 +66,11 @@ Vercel catches the push, Go compiles the markdown into the binary, and it's live
 
 ### A Beautiful Disaster
 
-I'll be honest, the codebase itself is a mess. It’s a Frankenstein’s monster of Go templates, hacked CSS, and pure spite. I spent four hours manually tree-shaking 53KB of CSS down to 20KB using Perl scripts just because I couldn't get a standard bundler to do exactly what I wanted.
+I'll be honest, the codebase itself is a mess. If you surveyed the repo, you'd see the remnants of the old Next.js app sitting right next to the new Go engine like a abandoned construction site. It’s a Frankenstein’s monster of Go templates, hacked CSS, and pure spite. 
 
-There are functions that shouldn't exist and data structures that would get me failed in a CS 101 class. But the code being a disaster doesn't matter when the page hits the browser in 0.4 seconds. I’d rather have a messy engine that wins the race than a beautifully architected Next.js app still waiting for the main thread to unblock.
+I spent four hours manually tree-shaking 53KB of CSS down to 20KB using Perl scripts just because I couldn't get a standard bundler to do exactly what I wanted. I have functions that shouldn't exist and data structures that would get me failed in a CS 101 class. There's a lot of "I'll refactor this later" that I know I never will.
+
+But the code being a disaster doesn't matter when the page hits the browser in 0.4 seconds. I’d rather have a messy engine that wins the race than a beautifully architected Next.js app still waiting for the main thread to unblock. In this world, functional garbage that hits 99 is better than a "clean" 85.
 
 ### The Verdict
 
