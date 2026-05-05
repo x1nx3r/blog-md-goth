@@ -1,0 +1,61 @@
+package templates
+
+import "blog-gotth/internal/posts"
+
+templ PostPage(post posts.Post) {
+	@LayoutPost(SEO{
+		Title:       post.Title,
+		Description: post.Summary,
+		SiteName:    "Mega Nugraha's Blog",
+		Author:      post.Author,
+		URL:         "https://x1nx3r.dev/post/" + post.Slug,
+	}) {
+		<div class="min-h-screen newspaper-paper-with-bg newspaper-aged">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10 newspaper-page-curl">
+				@NewspaperFolio("Mega Nugraha Press", "Special Feature", "Vol. II", "Filed " + post.DateStr)
+				@Header()
+				@Breadcrumbs([]BreadcrumbItem{
+					{Label: "Home", Href: "/"},
+					{Label: "Posts", Href: "/#posts"},
+					{Label: post.Title, Href: ""},
+				})
+				<div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+					<main class="lg:col-span-3 newspaper-text newspaper-vintage-text">
+						<article
+							class="pr-0 lg:pr-8 newspaper-slight-tilt newspaper-ink-specks"
+							style="border-right: 1px solid rgba(107, 107, 107, 0.3)"
+						>
+							<div class="flex items-center gap-4">
+								<a
+									href="/"
+									class="inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-gray-600 newspaper-smallcaps hover:text-black transition-colors mb-2"
+								>
+									<span aria-hidden="true">←</span>
+									Return to newsroom archive
+								</a>
+								<div class="flex-1"></div>
+								<time class="flex items-center text-[1rem] uppercase tracking-[0.35em] text-gray-600 newspaper-smallcaps mb-2">
+									{ post.DateStr }
+								</time>
+								<span class="newspaper-section-label">Feature Report</span>
+							</div>
+							<h1 class="text-4xl sm:text-5xl font-bold text-black leading-tight newspaper-headline newspaper-vintage-text newspaper-text mb-4">
+								{ post.Title }
+							</h1>
+							<div class="text-sm text-gray-600 newspaper-smallcaps mb-5 newspaper-text">
+								By <span class="newspaper-ink-underline">{ post.Author }</span> &bull; Staff Correspondent
+							</div>
+							<div class="newspaper-separator mb-6"></div>
+							<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns">
+								@templ.Raw(post.HTML)
+							</div>
+						</article>
+					</main>
+					<aside class="space-y-6 newspaper-text">
+						@SidebarBox()
+					</aside>
+				</div>
+			</div>
+		</div>
+	}
+}

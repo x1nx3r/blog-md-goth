@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Newspaper theme is loaded separately via <link> in layout.templ */
+/* This file is for any Tailwind utility overrides */
+
+@theme {
+  --font-serif: "EB Garamond", "Times New Roman", serif;
+  --font-display: "Playfair Display", serif;
+  --color-newspaper-cream: #faf6f0;
+  --color-newspaper-ink: #1a1a1a;
+}

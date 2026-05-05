@@ -1,0 +1,39 @@
+package templates
+
+import "blog-gotth/internal/posts"
+import "fmt"
+
+templ ToplineNews(topPosts []posts.PostMeta) {
+	if len(topPosts) > 0 {
+		<section class="newspaper-ink-specks">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				for i, post := range topPosts {
+					<article
+						class="space-y-2 newspaper-text newspaper-vintage-text pr-0 sm:pr-6 lg:pr-6"
+						if i < len(topPosts)-1 && len(topPosts) > 1 {
+							style={ fmt.Sprintf("border-right: 1px solid rgba(107, 107, 107, 0.3)") }
+						}
+					>
+						<time class="block text-[0.6rem] uppercase tracking-[0.3em] text-gray-600 newspaper-smallcaps mb-2">
+							{ post.DateStr }
+						</time>
+						<a href={ templ.SafeURL("/post/" + post.Slug) } class="group block">
+							<h3 class="text-lg font-semibold text-black newspaper-headline newspaper-vintage-text newspaper-text leading-snug group-hover:underline">
+								{ post.Title }
+							</h3>
+						</a>
+						<p class="text-xs sm:text-sm text-gray-700 newspaper-tight newspaper-text">
+							{ post.Summary }
+						</p>
+						<a
+							href={ templ.SafeURL("/post/" + post.Slug) }
+							class="inline-block mt-3 text-[0.6rem] uppercase tracking-[0.3em] text-gray-700 newspaper-ink-underline hover:text-black transition-colors"
+						>
+							Read article →
+						</a>
+					</article>
+				}
+			</div>
+		</section>
+	}
+}

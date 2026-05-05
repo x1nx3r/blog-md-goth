@@ -1,0 +1,121 @@
+package templates
+
+import "fmt"
+import "encoding/json"
+
+type SEO struct {
+	Title       string
+	Description string
+	OGImage     string
+	URL         string
+	Author      string
+	SiteName    string
+}
+
+func defaultSEO() SEO {
+	return SEO{
+		Title:       "Mega Nugraha - Developer & Problem Creator",
+		Description: "Personal blog and portfolio of Mega Nugraha.",
+		SiteName:    "Mega Nugraha's Blog",
+		Author:      "Mega Nugraha",
+		URL:         "https://x1nx3r.dev",
+	}
+}
+
+func toJSON(v any) string {
+	b, _ := json.Marshal(v)
+	return string(b)
+}
+
+templ Layout(seo SEO) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ seo.Title }</title>
+			<meta name="description" content={ seo.Description }/>
+			<meta name="author" content={ seo.Author }/>
+			<!-- Open Graph -->
+			<meta property="og:type" content="website"/>
+			<meta property="og:title" content={ seo.Title }/>
+			<meta property="og:description" content={ seo.Description }/>
+			<meta property="og:site_name" content={ seo.SiteName }/>
+			if seo.URL != "" {
+				<meta property="og:url" content={ seo.URL }/>
+			}
+			<!-- Twitter -->
+			<meta name="twitter:card" content="summary_large_image"/>
+			<meta name="twitter:title" content={ seo.Title }/>
+			<meta name="twitter:description" content={ seo.Description }/>
+			<!-- Fonts -->
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link
+				href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Manufacturing+Consent&display=swap"
+				rel="stylesheet"
+			/>
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+			<!-- Styles -->
+			<link rel="stylesheet" href="/static/css/tailwind.css"/>
+			<link rel="stylesheet" href="/static/css/newspaper.css"/>
+			<!-- Structured Data -->
+			<script type="application/ld+json">
+				{
+					"@context": "https://schema.org",
+					"@type": "WebSite",
+					"name": "Mega Nugraha's Blog",
+					"url": "https://x1nx3r.dev",
+					"author": {
+						"@type": "Person",
+						"name": "Mega Nugraha"
+					}
+				}
+			</script>
+		</head>
+		<body class="antialiased min-h-screen bg-[#f6f1e7] text-black">
+			{ children... }
+		</body>
+	</html>
+}
+
+templ LayoutPost(seo SEO) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ fmt.Sprintf("%s | Mega Nugraha", seo.Title) }</title>
+			<meta name="description" content={ seo.Description }/>
+			<meta name="author" content={ seo.Author }/>
+			<!-- Open Graph -->
+			<meta property="og:type" content="article"/>
+			<meta property="og:title" content={ seo.Title }/>
+			<meta property="og:description" content={ seo.Description }/>
+			<meta property="og:site_name" content={ seo.SiteName }/>
+			if seo.URL != "" {
+				<meta property="og:url" content={ seo.URL }/>
+			}
+			<!-- Twitter -->
+			<meta name="twitter:card" content="summary_large_image"/>
+			<meta name="twitter:title" content={ seo.Title }/>
+			<meta name="twitter:description" content={ seo.Description }/>
+			<!-- Fonts -->
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link
+				href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Manufacturing+Consent&display=swap"
+				rel="stylesheet"
+			/>
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+			<!-- Styles -->
+			<link rel="stylesheet" href="/static/css/tailwind.css"/>
+			<link rel="stylesheet" href="/static/css/newspaper.css"/>
+		</head>
+		<body class="antialiased min-h-screen bg-[#f6f1e7] text-black">
+			{ children... }
+		</body>
+	</html>
+}

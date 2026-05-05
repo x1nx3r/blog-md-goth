@@ -1,0 +1,1690 @@
+/**
+ * ========================================
+ * NEWSPAPER BLOG THEME - GLOBAL STYLES
+ * ========================================
+ * 
+ * A comprehensive vintage newspaper theme for Next.js blogs
+ * 
+ * TYPOGRAPHY SYSTEM:
+ * - EB Garamond: Primary serif for body text and readable content
+ * - Playfair Display: Display serif for headlines, mastheads, and emphasis
+ * - Crimson Text: Alternative serif used in advertisements
+ * - Iosevka: Monospace for code blocks and technical content
+ * 
+ * DESIGN PHILOSOPHY:
+ * - Authentic 1950s newspaper aesthetic with modern web standards
+ * - Responsive typography with clamp() for fluid scaling
+ * - Subtle vintage effects: ink bleeding, paper texture, registration marks
+ * - Semantic color system based on newspaper ink and aged paper
+ * 
+ * SECTIONS:
+ * 1. Font Imports & CSS Custom Properties
+ * 2. Base Styles & Typography Foundation
+ * 3. Markdown Content Styling System
+ * 4. Vintage Newspaper Visual Effects
+ * 5. Decorative Elements & Separators
+ * 6. Layout Components & Cards
+ * 7. Newspaper-Specific UI Components
+ * 
+ * ========================================
+ */
+
+/* ========================================
+   FONT IMPORTS
+   ======================================== */
+/* Primary serif for body text - supports variable weights 400-800 */
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+
+/* Display serif for headlines and decorative text - full weight range */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap');
+
+/* Alternative serif for advertisements and special sections */
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+
+/* Manufacturing Consent font for headlines and headers */
+.manufacturing-consent-regular {
+  font-family: "Manufacturing Consent", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Tailwind CSS utilities */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ======================================== */
+:root {
+    /* Typography - Font family definitions for consistent usage */
+    --font-display: "Playfair Display", serif;       /* Headlines and decorative text */
+    --font-times: "EB Garamond", "Times New Roman", serif;  /* Primary body text */
+    --font-playfair: "Playfair Display", serif;      /* Alternative display font */
+    --font-crimson: "Crimson Text", serif;           /* Advertisement text */
+    
+    /* Color Palette - Vintage newspaper theme */
+    --color-newspaper-cream: #faf6f0;        /* Primary background - aged paper cream */
+    --color-newspaper-off-white: #f8f5f0;    /* Secondary background - slightly warmer */
+    --color-newspaper-sepia: #8b7355;        /* Aged paper brown for subtle accents */
+    --color-newspaper-sepia-light: #d4c4a8;  /* Light sepia for very subtle backgrounds */
+    --color-newspaper-ink: #1a1a1a;          /* Primary text color - rich black ink */
+    --color-newspaper-gray: #4a4a4a;         /* Secondary text - medium gray */
+    --color-newspaper-light-gray: #8a8a8a;   /* Tertiary text - light gray for metadata */
+}
+
+/* ========================================
+   BASE STYLES & TYPOGRAPHY FOUNDATION
+   ======================================== */
+
+/**
+ * HTML Root Element
+ * - Sets base background to newspaper cream color
+ * - Prevents horizontal scrolling issues
+ */
+html {
+    background-color: var(--color-newspaper-off-white);
+    overflow-x: hidden;
+}
+
+/**
+ * Body Element - Typography Foundation
+ * - Primary serif font (EB Garamond) for all body text
+ * - Newspaper-appropriate line height for readability
+ * - Prevents mobile Safari bounce scrolling
+ * - Ensures full viewport height coverage
+ */
+body {
+    font-family: "EB Garamond", "Times New Roman", serif;
+    background-color: var(--color-newspaper-off-white);
+    min-height: 100vh;
+    overscroll-behavior: none; /* Prevents bounce on mobile Safari */
+    line-height: 1.55; /* Optimized for newspaper-style reading */
+}
+
+/**
+ * React Root Containers
+ * - Ensures background consistency across Next.js app structure
+ * - Maintains full height layout
+ */
+#__next, 
+[data-reactroot] {
+    background-color: var(--color-newspaper-off-white);
+    min-height: 100vh;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/**
+ * Text Truncation Utility
+ * - Truncates text to 3 lines with ellipsis
+ * - Used for article previews and card descriptions
+ */
+.line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+/**
+ * Mobile Typography Scaling
+ * - Reduces base font size on small screens for better fit
+ * - Maintains readability while conserving space
+ */
+@media (max-width: 640px) {
+    html {
+        font-size: 14px; /* Scales all rem-based typography */
+    }
+}
+
+/* ========================================
+   MARKDOWN CONTENT STYLING SYSTEM
+   ======================================== */
+
+/**
+ * Markdown Body Container
+ * - Base styles for all markdown-rendered content
+ * - Uses primary serif font with newspaper-appropriate line height
+ * - Slightly transparent black for authentic ink effect
+ */
+.markdown-body {
+    color: rgba(26, 26, 26, 0.88); /* Ink-like transparency */
+    line-height: 1.6; /* Optimal for reading */
+    font-family: "EB Garamond", "Times New Roman", serif;
+    font-size: 1rem;
+}
+
+/* ========================================
+   HEADING HIERARCHY
+   ======================================== */
+
+/**
+ * Base Heading Styles
+ * - All headings use Playfair Display for newspaper authenticity
+ * - Darker color for better hierarchy contrast
+ * - Consistent spacing and subtle letter-spacing
+ */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    color: rgba(26, 26, 26, 0.95); /* Darker than body text */
+    margin-top: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-family: "Playfair Display", serif; /* Display font for headlines */
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/**
+ * Major Headlines (H1, H2)
+ * - Uppercase transformation for traditional newspaper style
+ * - Wide letter-spacing for dramatic effect
+ */
+.markdown-body h1,
+.markdown-body h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.18em; /* Wide spacing for impact */
+}
+
+/**
+ * Underlined Headlines (H2, H3)
+ * - Decorative underline with vintage ink-bleeding effect
+ * - Slight rotation for hand-printed authenticity
+ */
+.markdown-body h2,
+.markdown-body h3 {
+    position: relative;
+    padding-bottom: 0.35rem;
+}
+
+.markdown-body h2::after,
+.markdown-body h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.15));
+    transform: rotate(-0.3deg); /* Slight imperfection */
+}
+
+/**
+ * Subheadings (H4)
+ * - Uppercase with moderate letter-spacing
+ * - Maintains hierarchy while staying readable
+ */
+.markdown-body h4 {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+/**
+ * Minor Headings (H5, H6)
+ * - Return to body font for subtle hierarchy
+ * - H6 gets special treatment as section markers
+ */
+.markdown-body h5,
+.markdown-body h6 {
+    font-family: "EB Garamond", "Times New Roman", serif;
+    font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE HEADING SIZES
+   ======================================== */
+
+/**
+ * H1 - Main Article Headlines
+ * - Largest size with fluid scaling
+ * - Dominates page hierarchy
+ */
+.markdown-body h1 {
+    font-size: clamp(2.35rem, 4vw, 3.25rem); /* 37.6px - 52px */
+}
+
+/**
+ * H2 - Section Headlines
+ * - Secondary hierarchy level
+ * - Still prominent but allows for content flow
+ */
+.markdown-body h2 {
+    font-size: clamp(1rem, 1.6vw, 1.375rem); /* 16px - 22px */
+}
+
+/**
+ * H3 - Subsection Headers
+ * - Balances prominence with readability
+ */
+.markdown-body h3 {
+    font-size: clamp(0.825rem, 1.4vw, 1.075rem); /* 13.2px - 17.2px */
+}
+
+/**
+ * H4 - Content Divisions
+ * - Clear hierarchy without overwhelming
+ */
+.markdown-body h4 {
+    font-size: clamp(0.675rem, 1.2vw, 0.875rem); /* 10.8px - 14px */
+}
+
+/**
+ * H5 - Minor Sections
+ * - Subtle emphasis above body text
+ */
+.markdown-body h5 {
+    font-size: clamp(0.575rem, 1vw, 0.675rem); /* 9.2px - 10.8px */
+}
+
+/**
+ * H6 - Section Labels
+ * - Special styling as metadata/labels
+ * - Muted color with wide letter-spacing
+ */
+.markdown-body h6 {
+    font-size: 1rem; /* 16px - same as body */
+    color: rgba(26, 26, 26, 0.6); /* More muted */
+    text-transform: uppercase;
+    letter-spacing: 0.18em; /* Wide spacing for label effect */
+}
+
+/* ========================================
+   PARAGRAPH & TEXT ELEMENTS
+   ======================================== */
+
+/**
+ * Paragraph Spacing
+ * - Tighter spacing for newspaper-style density
+ */
+.markdown-body p {
+    margin: 0.65rem 0;
+}
+
+/**
+ * Drop Cap Effect
+ * - First letter of first paragraph gets newspaper-style drop cap
+ * - Large, bold, dark background with cream text
+ * - Uses display font for visual impact
+ */
+.markdown-body > p:first-of-type::first-letter {
+    font-size: 3.25rem; /* Large decorative initial */
+    font-weight: 700;
+    float: left;
+    line-height: 0.9;
+    margin: 0.1rem 0.45rem 0 0;
+    padding: 0 0.2rem 0.05rem 0.2rem;
+    background: rgba(26, 26, 26, 0.85); /* Dark ink background */
+    color: #faf6f0; /* Cream text */
+    font-family: "Playfair Display", serif;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * Mobile Drop Cap Override
+ * - Disables drop cap on small screens for better readability
+ */
+@media (max-width: 640px) {
+    .markdown-body > p:first-of-type::first-letter {
+        float: none;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        background: none;
+        color: inherit;
+        font-size: inherit;
+        box-shadow: none;
+    }
+}
+
+/* ========================================
+   LINKS & INTERACTIVE ELEMENTS
+   ======================================== */
+
+/**
+ * Link Styling
+ * - Classic newspaper blue with subtle underline
+ * - Border-bottom instead of text-decoration for control
+ * - Smooth hover transitions
+ */
+.markdown-body a {
+    color: #274060; /* Classic newspaper link blue */
+    text-decoration: none;
+    border-bottom: 1px solid rgba(39, 64, 96, 0.35);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.markdown-body a:hover {
+    color: #152235; /* Darker on hover */
+    border-color: rgba(39, 64, 96, 0.55);
+}
+
+/* ========================================
+   CODE & TECHNICAL CONTENT
+   ======================================== */
+
+/**
+ * Inline Code Styling
+ * - Subtle background with monospace font
+ * - Slightly smaller than body text
+ * - Uses Iosevka for technical readability
+ */
+.markdown-body code {
+    background-color: rgba(26, 26, 26, 0.06);
+    color: rgba(26, 26, 26, 0.92);
+    padding: 0.15rem 0.35rem;
+    border-radius: 2px;
+    font-size: 0.95em;
+    font-family: "Iosevka", monospace;
+}
+
+/**
+ * Code Block Container
+ * - Newspaper-appropriate styling for code blocks
+ * - Subtle border and background
+ * - Horizontal scrolling for long lines
+ */
+.markdown-body pre {
+    background: rgba(26, 26, 26, 0.08);
+    color: rgba(26, 26, 26, 0.92);
+    padding: 1.25rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    box-shadow: inset 0 0 0 1px rgba(26, 26, 26, 0.1);
+}
+
+/**
+ * Code Within Pre Blocks
+ * - Resets inline code styling when inside pre
+ */
+.markdown-body pre code {
+    display: block;
+    background: transparent;
+    padding: 0;
+}
+
+/* ========================================
+   HORIZONTAL RULES & DIVIDERS
+   ======================================== */
+
+/**
+ * Horizontal Rule Styling
+ * - Vintage newspaper-style divider with gradient
+ * - Textured overlay for authentic print effect
+ */
+.markdown-body hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, rgba(26, 26, 26, 0.5) 20%, rgba(26, 26, 26, 0.8) 50%, rgba(26, 26, 26, 0.5) 80%, transparent 100%);
+    margin: 1.4rem 0;
+    position: relative;
+}
+
+/**
+ * HR Texture Overlay
+ * - Adds subtle diagonal hatching pattern
+ * - Mimics imperfect newspaper printing
+ */
+.markdown-body hr::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(-45deg, rgba(26, 26, 26, 0.1) 0, rgba(26, 26, 26, 0.1) 2px, transparent 2px, transparent 4px);
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+}
+
+/* ========================================
+   BLOCKQUOTES
+   ======================================== */
+
+/**
+ * Blockquote Container
+ * - Traditional left border with italic text
+ * - Slightly muted color for hierarchy
+ * - Decorative end marks for newspaper authenticity
+ */
+.markdown-body blockquote {
+    border-left: 4px solid rgba(26, 26, 26, 0.3);
+    padding-left: 0.9rem;
+    margin: 1.1rem 0;
+    color: rgba(26, 26, 26, 0.75);
+    font-style: italic;
+    position: relative;
+}
+
+/**
+ * Blockquote Decorative Marks
+ * - Small rotated lines at top and bottom
+ * - Mimics hand-drawn editorial marks
+ */
+.markdown-body blockquote::before,
+.markdown-body blockquote::after {
+    content: "";
+    position: absolute;
+    left: -0.9rem;
+    width: 18px;
+    height: 1px;
+    background: rgba(26, 26, 26, 0.35);
+}
+
+.markdown-body blockquote::before {
+    top: 0.2rem;
+    transform: rotate(-4deg);
+}
+
+.markdown-body blockquote::after {
+    bottom: 0.2rem;
+    transform: rotate(3deg);
+}
+
+/* ========================================
+   LISTS & ENUMERATION
+   ======================================== */
+
+/**
+ * Base List Styling
+ * - Consistent margins and padding
+ * - Tighter spacing for newspaper density
+ */
+.markdown-body ul,
+.markdown-body ol {
+    margin: 0.8rem 0 0.8rem 1.3rem;
+    padding-left: 0.9rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.35rem;
+    position: relative;
+}
+
+/**
+ * Unordered Lists
+ * - Custom bullet points using rotated squares
+ * - Removes default list styling
+ */
+.markdown-body ul {
+    list-style: none;
+    padding-left: 1.2rem;
+}
+
+.markdown-body ul li {
+    padding-left: 0.9rem;
+}
+
+/**
+ * Custom Bullet Points
+ * - Small rotated squares instead of circles
+ * - Matches vintage typesetting aesthetic
+ */
+.markdown-body ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 0.35rem;
+    height: 0.35rem;
+    border: 1px solid rgba(26, 26, 26, 0.7);
+    background: rgba(26, 26, 26, 0.15);
+    transform: rotate(10deg);
+}
+
+/**
+ * Ordered Lists
+ * - Custom numbering with period
+ * - Bold, spaced numbers for emphasis
+ */
+.markdown-body ol {
+    counter-reset: ordered;
+    list-style: none;
+    padding-left: 1.4rem;
+}
+
+.markdown-body ol li {
+    counter-increment: ordered;
+    padding-left: 1.4rem;
+}
+
+/**
+ * Custom List Numbers
+ * - Bold numbers with wide letter-spacing
+ * - Positioned for optimal alignment
+ */
+.markdown-body ol li::before {
+    content: counter(ordered) ".";
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26, 26, 26, 0.7);
+}
+
+/* ========================================
+   VINTAGE NEWSPAPER EFFECTS
+   ======================================== */
+
+/* ========================================
+   VINTAGE NEWSPAPER BACKGROUND TEXTURES
+   ======================================== */
+
+/**
+ * Basic Paper Texture (.newspaper-paper)
+ * - Simulates aged newsprint with subtle grain and fiber patterns
+ * - Multiple layered gradients create depth and authenticity
+ * - Uses sepia tones for vintage aging effect
+ */
+.newspaper-paper {
+    background-color: #faf6f0; /* Base cream paper color */
+    background-image: 
+        /* Fine grain texture - scattered dots for paper texture */
+        radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.02) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.015) 1px, transparent 1px),
+        radial-gradient(circle at 40% 80%, rgba(160, 140, 110, 0.01) 1px, transparent 1px),
+        /* Subtle paper fibers - crossing diagonal patterns */
+        linear-gradient(45deg, transparent 49%, rgba(139, 115, 85, 0.008) 49%, rgba(139, 115, 85, 0.008) 51%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, rgba(139, 115, 85, 0.008) 49%, rgba(139, 115, 85, 0.008) 51%, transparent 51%),
+        /* Very subtle age spots - random imperfections */
+        radial-gradient(ellipse at 70% 20%, rgba(139, 115, 85, 0.02) 1px, transparent 2px),
+        radial-gradient(ellipse at 30% 90%, rgba(160, 140, 110, 0.015) 1px, transparent 2px);
+    background-size: 
+        4px 4px,   /* Small grain pattern */
+        3px 3px,   /* Finer grain */
+        5px 5px,   /* Medium grain */
+        8px 8px,   /* Fiber pattern */
+        8px 8px,   /* Crossing fibers */
+        15px 10px, /* Age spots */
+        12px 8px;  /* Secondary age spots */
+}
+
+/**
+ * Paper Texture with Enhanced Background (.newspaper-paper-with-bg)
+ * - Enhanced paper texture using only CSS gradients for fast loading
+ * - Multiple layered gradients create depth and authenticity
+ * - No heavy background images - uses pure CSS for vintage effect
+ */
+.newspaper-paper-with-bg {
+    background-color: #faf6f0;
+    background-image: 
+        /* Enhanced paper texture layers */
+        radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.02) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.015) 1px, transparent 1px),
+        radial-gradient(circle at 40% 80%, rgba(160, 140, 110, 0.01) 1px, transparent 1px),
+        radial-gradient(circle at 15% 85%, rgba(139, 115, 85, 0.015) 1px, transparent 1px),
+        radial-gradient(circle at 90% 10%, rgba(160, 140, 110, 0.012) 1px, transparent 1px),
+        /* Paper fiber patterns */
+        linear-gradient(45deg, transparent 49%, rgba(139, 115, 85, 0.008) 49%, rgba(139, 115, 85, 0.008) 51%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, rgba(139, 115, 85, 0.008) 49%, rgba(139, 115, 85, 0.008) 51%, transparent 51%),
+        linear-gradient(30deg, transparent 49%, rgba(160, 140, 110, 0.006) 49%, rgba(160, 140, 110, 0.006) 51%, transparent 51%),
+        /* Subtle aging spots */
+        radial-gradient(ellipse at 70% 20%, rgba(139, 115, 85, 0.02) 1px, transparent 2px),
+        radial-gradient(ellipse at 30% 90%, rgba(160, 140, 110, 0.015) 1px, transparent 2px),
+        /* Very subtle cream gradient overlay for depth */
+        linear-gradient(135deg, rgba(250, 246, 240, 0.95), rgba(248, 244, 238, 0.98));
+    background-size: 
+        4px 4px, 3px 3px, 5px 5px, 6px 6px, 4px 4px,
+        8px 8px, 8px 8px, 12px 12px,
+        15px 10px, 12px 8px,
+        100% 100%;
+    background-position: 
+        0 0, 0 0, 0 0, 0 0, 0 0,
+        0 0, 0 0, 0 0,
+        0 0, 0 0,
+        0 0;
+    background-repeat: 
+        repeat, repeat, repeat, repeat, repeat,
+        repeat, repeat, repeat,
+        repeat, repeat,
+        no-repeat;
+}
+
+/* ========================================
+   VINTAGE TEXT EFFECTS
+   ======================================== */
+
+/**
+ * Basic Newspaper Text (.newspaper-text)
+ * - Subtle text shadow to simulate ink bleeding into paper
+ * - Tight line height for newspaper density
+ * - Minimal letter spacing for authentic feel
+ */
+.newspaper-text {
+    text-shadow: 
+        0.02em 0.02em 0.01em rgba(26, 26, 26, 0.1),  /* Main shadow */
+        -0.01em -0.01em 0.01em rgba(26, 26, 26, 0.05); /* Counter-shadow */
+    line-height: 1.55; /* Newspaper-appropriate spacing */
+    letter-spacing: 0.005em; /* Subtle character spacing */
+}
+
+/**
+ * Headline Text Effect (.newspaper-headline)
+ * - Enhanced ink bleeding effect for bolder headlines
+ * - Multiple shadows create depth and authenticity
+ * - Used on all major headings
+ */
+.newspaper-headline {
+    text-shadow: 
+        0.03em 0.03em 0.02em rgba(26, 26, 26, 0.15), /* Primary shadow */
+        -0.01em -0.01em 0.01em rgba(26, 26, 26, 0.08), /* Highlight */
+        0.01em 0.01em 0.01em rgba(26, 26, 26, 0.1);   /* Depth shadow */
+    letter-spacing: 0.015em; /* Slightly wider for headlines */
+}
+
+/**
+ * Masthead Typography (.newspaper-masthead)
+ * - Strongest ink bleeding effect for main site title
+ * - Multiple layered shadows for maximum authenticity
+ * - Wide letter spacing for dramatic impact
+ */
+.newspaper-masthead {
+    text-shadow: 
+        0.04em 0.04em 0.03em rgba(26, 26, 26, 0.2),  /* Heavy main shadow */
+        -0.02em -0.02em 0.02em rgba(26, 26, 26, 0.1), /* Strong highlight */
+        0.02em 0.02em 0.02em rgba(26, 26, 26, 0.15);  /* Medium depth */
+    letter-spacing: 0.03em; /* Wide spacing for masthead impact */
+}
+
+/* ========================================
+   VINTAGE LAYOUT IMPERFECTIONS
+   ======================================== */
+
+/**
+ * Subtle Element Rotation (.newspaper-slight-tilt)
+ * - Adds authentic hand-placed newspaper element feel
+ * - Different rotations based on nth-child for variety
+ * - Very subtle angles to avoid readability issues
+ */
+.newspaper-slight-tilt:nth-child(odd) {
+    transform: rotate(-0.2deg); /* Slight left tilt */
+}
+
+.newspaper-slight-tilt:nth-child(even) {
+    transform: rotate(0.15deg); /* Slight right tilt */
+}
+
+.newspaper-slight-tilt:nth-child(3n) {
+    transform: rotate(-0.1deg); /* Minimal left tilt for every 3rd */
+}
+
+/**
+ * Imperfect Border Effect (.newspaper-border)
+ * - Simulates uneven ink distribution in printing
+ * - Gradient border-image creates varying opacity
+ * - Used for authentic newspaper box borders
+ */
+.newspaper-border {
+    border-image: linear-gradient(
+        90deg,
+        rgba(26, 26, 26, 0.9) 0%,   /* Start opacity */
+        rgba(26, 26, 26, 0.95) 10%, /* Build up */
+        rgba(26, 26, 26, 0.9) 20%,  /* Fade slightly */
+        rgba(26, 26, 26, 0.98) 30%, /* Strong point */
+        rgba(26, 26, 26, 0.92) 40%, /* Medium */
+        rgba(26, 26, 26, 0.96) 50%, /* Center strong */
+        rgba(26, 26, 26, 0.9) 60%,  /* Fade */
+        rgba(26, 26, 26, 0.94) 70%, /* Build */
+        rgba(26, 26, 26, 0.9) 80%,  /* Medium */
+        rgba(26, 26, 26, 0.97) 90%, /* Strong end */
+        rgba(26, 26, 26, 0.9) 100%  /* Fade out */
+    ) 1;
+    position: relative;
+}
+
+/* ========================================
+   DECORATIVE SEPARATORS & BORDERS
+   ======================================== */
+
+/**
+ * Main Section Separator (.newspaper-separator)
+ * - Heavy decorative line to divide major content sections
+ * - Complex gradient simulates uneven ink distribution
+ * - Slight rotation adds hand-placed authenticity
+ * - Used between major page sections
+ */
+.newspaper-separator {
+    position: relative;
+    border: none;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,                /* Fade in from left */
+        rgba(26, 26, 26, 0.2) 5%,     /* Light start */
+        rgba(26, 26, 26, 0.9) 10%,    /* Build to strong */
+        rgba(26, 26, 26, 0.95) 15%,   /* Peak intensity */
+        rgba(26, 26, 26, 0.8) 25%,    /* Slight dip */
+        rgba(26, 26, 26, 0.98) 35%,   /* Strong point */
+        rgba(26, 26, 26, 0.85) 45%,   /* Medium */
+        rgba(26, 26, 26, 0.92) 55%,   /* Center strong */
+        rgba(26, 26, 26, 0.88) 65%,   /* Slight fade */
+        rgba(26, 26, 26, 0.96) 75%,   /* Build up */
+        rgba(26, 26, 26, 0.82) 85%,   /* Gradual fade */
+        rgba(26, 26, 26, 0.9) 90%,    /* Final strong */
+        rgba(26, 26, 26, 0.2) 95%,    /* Light end */
+        transparent 100%               /* Fade out */
+    );
+    margin: 0.7em 0;
+    transform: rotate(-0.1deg); /* Subtle imperfection */
+}
+
+/**
+ * Separator Top Accent Line
+ * - Thin line above main separator for depth
+ * - Offset positioning and rotation create layered effect
+ * - Simulates ink pooling and printing imperfections
+ */
+.newspaper-separator::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.3) 10%,   /* Light accent start */
+        rgba(26, 26, 26, 0.6) 20%,   /* Build intensity */
+        rgba(26, 26, 26, 0.4) 30%,   /* Vary opacity */
+        rgba(26, 26, 26, 0.7) 40%,   /* Peak */
+        rgba(26, 26, 26, 0.5) 50%,   /* Center balance */
+        rgba(26, 26, 26, 0.8) 60%,   /* Strong point */
+        rgba(26, 26, 26, 0.45) 70%,  /* Fade */
+        rgba(26, 26, 26, 0.65) 80%,  /* Build again */
+        rgba(26, 26, 26, 0.3) 90%,   /* Light end */
+        transparent 100%
+    );
+    transform: translateX(2px) rotate(0.05deg); /* Offset and rotate */
+}
+
+/**
+ * Separator Bottom Accent Line
+ * - Companion to top accent with different characteristics
+ * - Opposite offset and rotation for authentic printing feel
+ * - Creates three-dimensional separator effect
+ */
+.newspaper-separator::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.2) 15%,   /* Gentle start */
+        rgba(26, 26, 26, 0.5) 25%,   /* Build */
+        rgba(26, 26, 26, 0.35) 35%,  /* Vary */
+        rgba(26, 26, 26, 0.6) 45%,   /* Strong */
+        rgba(26, 26, 26, 0.4) 55%,   /* Center */
+        rgba(26, 26, 26, 0.7) 65%,   /* Peak */
+        rgba(26, 26, 26, 0.3) 75%,   /* Fade */
+        rgba(26, 26, 26, 0.55) 85%,  /* Final accent */
+        rgba(26, 26, 26, 0.25) 95%,  /* Light end */
+        transparent 100%
+    );
+    transform: translateX(-1px) rotate(-0.03deg); /* Opposite offset */
+}
+
+/**
+ * Masthead Decorative Border (.newspaper-masthead-border)
+ * - Heavy decorative border for site title/masthead area
+ * - Thicker than regular separator (6px vs 3px)
+ * - High-contrast gradient for maximum visual impact
+ * - Used only for the main site header decoration
+ */
+.newspaper-masthead-border {
+    position: relative;
+    border: none;
+    height: 6px; /* Double thickness for masthead importance */
+    background: linear-gradient(
+        90deg,
+        rgba(26, 26, 26, 0.1) 0%,    /* Fade in */
+        rgba(26, 26, 26, 0.95) 5%,   /* Quick build to strong */
+        rgba(26, 26, 26, 0.98) 10%,  /* Peak early */
+        rgba(26, 26, 26, 0.9) 20%,   /* Slight fade */
+        rgba(26, 26, 26, 0.99) 30%,  /* Maximum intensity */
+        rgba(26, 26, 26, 0.85) 40%,  /* Mid variation */
+        rgba(26, 26, 26, 0.97) 50%,  /* Center strong */
+        rgba(26, 26, 26, 0.88) 60%,  /* Balance */
+        rgba(26, 26, 26, 0.96) 70%,  /* Build to end */
+        rgba(26, 26, 26, 0.92) 80%,  /* Strong finish */
+        rgba(26, 26, 26, 0.98) 90%,  /* Peak end */
+        rgba(26, 26, 26, 0.94) 95%,  /* Sustain */
+        rgba(26, 26, 26, 0.1) 100%   /* Fade out */
+    );
+    margin: 1.5em 0; /* Generous spacing for masthead */
+    transform: rotate(-0.05deg); /* Subtle authenticity */
+}
+
+/**
+ * Masthead Border Top Accent
+ * - Thicker accent line (2px) for masthead prominence
+ * - Larger offset for more dramatic layering effect
+ */
+.newspaper-masthead-border::before {
+    content: '';
+    position: absolute;
+    top: -2px; /* Larger offset than regular separator */
+    left: 0;
+    right: 0;
+    height: 2px; /* Thicker accent line */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.4) 8%,    /* Build gradually */
+        rgba(26, 26, 26, 0.7) 15%,   /* Strong early */
+        rgba(26, 26, 26, 0.5) 25%,   /* Vary */
+        rgba(26, 26, 26, 0.8) 35%,   /* Peak */
+        rgba(26, 26, 26, 0.6) 45%,   /* Balance */
+        rgba(26, 26, 26, 0.85) 55%,  /* Maximum */
+        rgba(26, 26, 26, 0.55) 65%,  /* Fade */
+        rgba(26, 26, 26, 0.75) 75%,  /* Build */
+        rgba(26, 26, 26, 0.4) 85%,   /* Fade */
+        rgba(26, 26, 26, 0.65) 92%,  /* Final accent */
+        transparent 100%
+    );
+    transform: translateX(3px) rotate(0.08deg); /* Larger offset */
+}
+
+/**
+ * Masthead Border Bottom Accent
+ * - Matching thick accent line for bottom
+ * - Opposite transformation for authentic printing feel
+ */
+.newspaper-masthead-border::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Larger bottom offset */
+    left: 0;
+    right: 0;
+    height: 2px; /* Matching thickness */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.3) 12%,   /* Gentle start */
+        rgba(26, 26, 26, 0.6) 20%,   /* Build */
+        rgba(26, 26, 26, 0.45) 30%,  /* Vary */
+        rgba(26, 26, 26, 0.75) 40%,  /* Strong */
+        rgba(26, 26, 26, 0.5) 50%,   /* Center */
+        rgba(26, 26, 26, 0.8) 60%,   /* Peak */
+        rgba(26, 26, 26, 0.4) 70%,   /* Fade */
+        rgba(26, 26, 26, 0.7) 80%,   /* Build end */
+        rgba(26, 26, 26, 0.35) 88%,  /* Final fade */
+        transparent 100%
+    );
+    transform: translateX(-2px) rotate(-0.06deg); /* Opposite transform */
+}
+
+/**
+ * Thin Section Divider (.newspaper-thin-separator)
+ * - Subtle divider for minor content sections
+ * - Single pixel height for minimal visual weight
+ * - Used within content areas for gentle separation
+ */
+.newspaper-thin-separator {
+    position: relative;
+    border: none;
+    height: 1px; /* Minimal thickness */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.15) 10%,  /* Light start */
+        rgba(26, 26, 26, 0.7) 20%,   /* Build quickly */
+        rgba(26, 26, 26, 0.5) 30%,   /* Vary */
+        rgba(26, 26, 26, 0.8) 40%,   /* Peak */
+        rgba(26, 26, 26, 0.6) 50%,   /* Center balance */
+        rgba(26, 26, 26, 0.85) 60%,  /* Maximum for thin line */
+        rgba(26, 26, 26, 0.45) 70%,  /* Fade */
+        rgba(26, 26, 26, 0.75) 80%,  /* Build to end */
+        rgba(26, 26, 26, 0.15) 90%,  /* Light end */
+        transparent 100%
+    );
+    margin: 0.55em 0; /* Tighter margins than main separator */
+    transform: rotate(0.08deg); /* Slight opposite tilt for variety */
+}
+
+/**
+ * Thin Separator Accent Line
+ * - Ultra-subtle accent for thin separators
+ * - Inset from edges (5% margin) for refined look
+ * - Half-pixel height for extremely delicate effect
+ */
+.newspaper-thin-separator::before {
+    content: '';
+    position: absolute;
+    top: -0.5px; /* Minimal offset */
+    left: 5%; /* Inset from edges */
+    right: 5%;
+    height: 0.5px; /* Ultra-thin accent */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 26, 0.3) 20%,   /* Gentle build */
+        rgba(26, 26, 26, 0.5) 40%,   /* Mid peak */
+        rgba(26, 26, 26, 0.4) 60%,   /* Slight fade */
+        rgba(26, 26, 26, 0.6) 80%,   /* End strong */
+        transparent 100%
+    );
+    transform: translateX(1px) rotate(-0.04deg); /* Minimal adjustment */
+}
+
+/* ========================================
+   AGING & WEAR EFFECTS
+   ======================================== */
+
+/**
+ * Aged Paper Effect (.newspaper-aged)
+ * - Simulates age spots, stains, and paper deterioration
+ * - Multiple radial gradients create random imperfections
+ * - Subtle sepia tones for authentic vintage feel
+ */
+.newspaper-aged::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        /* Light coffee stains - larger elliptical spots */
+        radial-gradient(ellipse at 15% 25%, rgba(139, 115, 85, 0.03) 3px, transparent 4px),
+        radial-gradient(ellipse at 85% 75%, rgba(160, 140, 110, 0.025) 2px, transparent 3px),
+        radial-gradient(ellipse at 60% 10%, rgba(139, 115, 85, 0.02) 4px, transparent 5px),
+        /* Subtle foxing spots - small circular aging marks */
+        radial-gradient(circle at 25% 80%, rgba(139, 115, 85, 0.015) 1px, transparent 2px),
+        radial-gradient(circle at 90% 30%, rgba(160, 140, 110, 0.02) 1px, transparent 2px);
+    pointer-events: none; /* Don't interfere with content interaction */
+    z-index: 1; /* Behind content */
+}
+
+/**
+ * Aged Container Setup
+ * - Establishes stacking context for aging overlay
+ */
+.newspaper-aged {
+    position: relative;
+}
+
+/**
+ * Aged Content Layering
+ * - Ensures content appears above aging effects
+ */
+.newspaper-aged > * {
+    position: relative;
+    z-index: 2; /* Above aging overlay */
+}
+
+/**
+ * Worn Paper Edges (.newspaper-worn-edge)
+ * - Simulates worn, slightly damaged paper edges
+ * - Diagonal gradient creates subtle edge darkening
+ * - Applied to containers for authentic paper feel
+ */
+.newspaper-worn-edge {
+    position: relative;
+}
+
+.newspaper-worn-edge::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(
+        45deg,
+        transparent 98%, /* Mostly invisible */
+        rgba(139, 115, 85, 0.1) 99%, /* Tiny edge darkening */
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+/* ========================================
+   TYPOGRAPHY ENHANCEMENT UTILITIES
+   ======================================== */
+
+/**
+ * Vintage Typography Features (.newspaper-vintage-text)
+ * - Enables advanced font features for authentic look
+ * - Kerning, ligatures, and contextual alternates
+ * - Applied to important text elements
+ */
+.newspaper-vintage-text {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-variant-ligatures: common-ligatures;
+}
+
+/**
+ * Faded Text Effect (.newspaper-faded)
+ * - Simulates ink fading over time
+ * - Reduced opacity with subtle shadow
+ * - Used for secondary or historical content
+ */
+.newspaper-faded {
+    color: rgba(26, 26, 26, 0.85); /* Slightly transparent */
+    text-shadow: 0.01em 0.01em 0.01em rgba(26, 26, 26, 0.1);
+}
+
+/**
+ * Print Registration Error (.newspaper-misaligned)
+ * - Simulates slight printing misalignment
+ * - Tiny offset to mimic vintage printing imperfections
+ * - Very subtle effect for authenticity
+ */
+.newspaper-misaligned {
+    transform: translateX(0.1px) translateY(-0.05px);
+}
+
+/**
+ * Page Corner Curl Effect (.newspaper-page-curl)
+ * - Subtle shadow in corner suggesting paper curl
+ * - Applied to main content containers
+ * - Creates depth and paper-like appearance
+ */
+.newspaper-page-curl {
+    position: relative;
+}
+
+.newspaper-page-curl::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.02) 0%,  /* Very light shadow */
+        rgba(0, 0, 0, 0.01) 50%, /* Fade to lighter */
+        transparent 100%         /* Fade to nothing */
+    );
+    pointer-events: none;
+}
+
+/* ========================================
+   LAYOUT COMPONENTS & NEWSPAPER COLUMNS
+   ======================================== */
+
+/**
+ * Newspaper Column Layout (.newspaper-columns)
+ * - Traditional newspaper multi-column text layout
+ * - Column rule between columns with newspaper styling
+ * - Subtle background effects for authentic print feel
+ * - Used for main article content that should flow in columns
+ */
+.newspaper-columns {
+    column-gap: 2.1rem; /* Generous gap between columns */
+    column-rule: 1px solid rgba(26, 26, 26, 0.25); /* Subtle dividing line */
+    position: relative; /* For pseudo-element positioning */
+}
+
+/**
+ * Column Background Line Pattern
+ * - Subtle horizontal lines mimicking ruled paper
+ * - Very light sepia tones for vintage feel
+ * - Mix-blend-mode creates authentic overlay effect
+ */
+.newspaper-columns::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* Cover entire column area */
+    background: repeating-linear-gradient(
+        0deg, /* Horizontal lines */
+        rgba(139, 115, 85, 0.05) 0px,  /* Light sepia line */
+        rgba(139, 115, 85, 0.05) 1px, /* Line thickness */
+        transparent 1px,               /* Gap start */
+        transparent 7px                /* Gap to next line */
+    );
+    mix-blend-mode: multiply; /* Blend with content */
+    opacity: 0.2; /* Very subtle effect */
+    pointer-events: none; /* Don't interfere with text selection */
+}
+
+/**
+ * Column Highlight Effect
+ * - Subtle radial highlight suggesting paper quality variations
+ * - Screen blend mode creates gentle brightening
+ * - Positioned at top of column area
+ */
+.newspaper-columns::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.15), transparent 60%);
+    mix-blend-mode: screen; /* Brightening effect */
+    pointer-events: none;
+}
+
+/* ========================================
+   PHOTO & IMAGE TREATMENT
+   ======================================== */
+
+/**
+ * Vintage Newspaper Photo Container (.newspaper-photo)
+ * - Authentic newspaper photo styling with border and shadows
+ * - Mimics traditional photo mounting in newspapers
+ * - Heavy border and shadow effects for 1950s aesthetic
+ */
+.newspaper-photo {
+    position: relative;
+    overflow: hidden; /* Contain image and effects */
+    border: 3px solid rgba(26, 26, 26, 0.85); /* Heavy photo border */
+    box-shadow: 
+        2px 3px 0 rgba(26, 26, 26, 0.25),  /* Main shadow */
+        -1px -1px 0 rgba(255, 255, 255, 0.6); /* Highlight edge */
+    background-color: rgba(250, 246, 240, 0.9); /* Photo backing */
+}
+
+/**
+ * Photo Image Styling
+ * - Desaturated look typical of vintage newspaper photos
+ * - Enhanced contrast for better newsprint simulation
+ * - Slightly darkened for authentic newspaper photo feel
+ */
+.newspaper-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: 
+        grayscale(0.9)    /* Almost black & white */
+        contrast(1.15)    /* Enhanced contrast */
+        brightness(0.9);  /* Slightly darker */
+    object-fit: cover; /* Maintain aspect ratio */
+}
+
+/**
+ * Photo Halftone Pattern Overlay (Before)
+ * - Diagonal lines simulating newspaper halftone printing
+ * - Subtle sepia tones for vintage effect
+ * - Applied with multiply blend for authentic look
+ */
+.newspaper-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg, /* Diagonal pattern */
+        rgba(139, 115, 85, 0.08) 0px,  /* Sepia line */
+        rgba(139, 115, 85, 0.08) 2px,  /* Line width */
+        transparent 2px,               /* Gap start */
+        transparent 6px                /* Gap width */
+    );
+    mix-blend-mode: multiply; /* Blend with photo */
+    opacity: 0.15; /* Subtle effect */
+    pointer-events: none;
+}
+
+/**
+ * Photo Dot Pattern Overlay (After)
+ * - Halftone dot pattern for newspaper printing simulation
+ * - Small repeating circles create traditional halftone effect
+ * - Higher opacity than line pattern for stronger effect
+ */
+.newspaper-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle, 
+        rgba(0, 0, 0, 0.15) 10%, /* Dark center dot */
+        transparent 11%          /* Transparent surround */
+    );
+    background-size: 6px 6px; /* Dot spacing */
+    mix-blend-mode: multiply;
+    opacity: 0.25; /* Visible but not overwhelming */
+    pointer-events: none;
+}
+
+/**
+ * Photo Caption Styling (.newspaper-photo-caption)
+ * - Traditional newspaper photo caption format
+ * - Small caps with wide letter spacing
+ * - Centered below photo with muted color
+ */
+.newspaper-photo-caption {
+    font-size: 0.75rem; /* Small caption text */
+    text-transform: uppercase; /* All caps style */
+    letter-spacing: 0.18em; /* Wide character spacing */
+    color: rgba(26, 26, 26, 0.7); /* Muted text color */
+    margin-top: 0.5rem; /* Space from photo */
+    text-align: center; /* Centered caption */
+}
+
+/* ========================================
+   CARD COMPONENTS & INTERACTIVE ELEMENTS
+   ======================================== */
+
+/**
+ * Spotlight Story Card (.newspaper-spotlight-card)
+ * - Featured story cards for secondary content highlighting
+ * - Vintage newspaper box styling with subtle shadows
+ * - Interactive hover effects for modern web experience
+ * - Used for article previews and featured content
+ */
+.newspaper-spotlight-card {
+    position: relative;
+    border: 1px solid rgba(26, 26, 26, 0.35); /* Subtle border */
+    background: rgba(250, 246, 240, 0.75); /* Semi-transparent paper */
+    padding: 1.25rem; /* Generous internal spacing */
+    box-shadow: 
+        1px 1px 0 rgba(26, 26, 26, 0.2),    /* Main shadow */
+        -1px -1px 0 rgba(255, 255, 255, 0.55); /* Highlight edge */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover */
+}
+
+/**
+ * Spotlight Card Background Texture
+ * - Subtle radial gradient for paper texture variation
+ * - Positioned off-center for organic feel
+ */
+.newspaper-spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 20% 25%, /* Off-center positioning */
+        rgba(26, 26, 26, 0.05), /* Very light center */
+        transparent 60% /* Fade to transparent */
+    );
+    opacity: 0.25; /* Subtle effect */
+    pointer-events: none;
+}
+
+/**
+ * Spotlight Card Content Layering
+ * - Ensures content appears above background effects
+ */
+.newspaper-spotlight-card > * {
+    position: relative;
+    z-index: 1; /* Above background texture */
+}
+
+/**
+ * Spotlight Card Hover Effect
+ * - Lifts card slightly with enhanced shadow
+ * - Modern interaction on vintage styling
+ */
+.newspaper-spotlight-card:hover {
+    transform: translateY(-2px); /* Subtle lift */
+    box-shadow: 
+        2px 2px 0 rgba(26, 26, 26, 0.25),   /* Enhanced shadow */
+        -1px -1px 0 rgba(255, 255, 255, 0.65); /* Brighter highlight */
+}
+
+/* ========================================
+   TYPOGRAPHY UTILITY CLASSES
+   ======================================== */
+
+/**
+ * Small Caps Text (.newspaper-smallcaps)
+ * - Traditional newspaper small capitals formatting
+ * - Wide letter spacing for formal appearance
+ * - Used for dates, bylines, and metadata
+ * - Uses EB Garamond for consistency with body text
+ * - Uses smaller font size to ensure numbers match letter height
+ */
+.newspaper-smallcaps {
+    font-size: 0.85em; /* Smaller size for consistent appearance */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 0.12em; /* Wide character spacing */
+    font-family: "EB Garamond", "Times New Roman", serif; /* Consistent with body text */
+}
+
+/**
+ * Deck/Subheadline Text (.newspaper-deck)
+ * - Traditional newspaper deck (subheadline) styling
+ * - Larger than body text but smaller than headlines
+ * - Uppercase with wide spacing for emphasis
+ */
+.newspaper-deck {
+    font-size: 1.05rem; /* Slightly larger than body */
+    letter-spacing: 0.08em; /* Moderate spacing */
+    text-transform: uppercase; /* All caps */
+    color: rgba(26, 26, 26, 0.7); /* Muted for hierarchy */
+    margin-top: 0.65rem; /* Space from headline */
+}
+
+/**
+ * Tight Letter Spacing (.newspaper-tight)
+ * - Reduces letter spacing for dense text areas
+ * - Used where space is at a premium
+ * - Maintains readability while conserving space
+ */
+.newspaper-tight {
+    letter-spacing: -0.01em; /* Slightly tighter than normal */
+}
+
+/**
+ * Alternative Drop Cap (.newspaper-dropcap)
+ * - Larger drop cap variant for special sections
+ * - Even more prominent than markdown drop cap
+ * - Dark background with cream text for maximum impact
+ */
+.newspaper-dropcap::first-letter {
+    font-size: 3.75rem; /* Larger than markdown version */
+    font-weight: 700; /* Heavy weight */
+    float: left;
+    line-height: 0.9; /* Tight line spacing */
+    margin: 0.1rem 0.4rem 0 0; /* Spacing around drop cap */
+    padding: 0 0.15rem 0.05rem 0.15rem; /* Internal padding */
+    background: rgba(26, 26, 26, 0.85); /* Dark ink background */
+    color: #faf6f0; /* Cream text */
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25); /* Drop shadow */
+    font-family: "Playfair Display", serif; /* Display font */
+}
+
+/* ========================================
+   INK EFFECTS & PRINTING ARTIFACTS
+   ======================================== */
+
+/**
+ * Ink Speck Effect Container (.newspaper-ink-specks)
+ * - Container for elements that should have ink speck overlays
+ * - Sets up positioning context for pseudo-element effects
+ */
+.newspaper-ink-specks {
+    position: relative;
+}
+
+/**
+ * Ink Speck Overlay Pattern
+ * - Simulates random ink specks from vintage printing process
+ * - Multiple small radial gradients at different positions
+ * - Extends beyond container edges for natural randomness
+ */
+.newspaper-ink-specks::after {
+    content: '';
+    position: absolute;
+    inset: -6px; /* Extend beyond container edges */
+    background-image:
+        /* Small ink specks at various positions */
+        radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.08) 0.5px, transparent 1.5px),
+        radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.06) 0.4px, transparent 1.4px),
+        radial-gradient(circle at 30% 60%, rgba(0, 0, 0, 0.05) 0.3px, transparent 1.3px);
+    background-size: 12px 12px, 14px 14px, 16px 16px; /* Different speck densities */
+    mix-blend-mode: multiply; /* Blend with content */
+    opacity: 0.3; /* Subtle effect */
+    pointer-events: none; /* Don't interfere with interactions */
+}
+
+/**
+ * Ink Underline Effect (.newspaper-ink-underline)
+ * - Simulates ink bleeding underline effect
+ * - Gradient from transparent to ink for authentic look
+ * - Applied to important text elements for emphasis
+ */
+.newspaper-ink-underline {
+    position: relative;
+    display: inline; /* Works with inline text */
+    background-image: linear-gradient(
+        180deg, /* Vertical gradient */
+        transparent 60%,              /* Transparent top */
+        rgba(26, 26, 26, 0.2) 60%,   /* Light ink start */
+        rgba(26, 26, 26, 0.5) 100%   /* Darker ink bottom */
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 0.25em; /* Thin underline */
+    background-position: 0 100%; /* Position at bottom */
+}
+
+/* ========================================
+   PRINTING REGISTRATION MARKS
+   ======================================== */
+
+/**
+ * Print Registration Mark (.newspaper-registration-mark)
+ * - Circular mark with crosshairs used in printing industry
+ * - Indicates print registration and quality
+ * - Used as decorative element in newspaper design
+ */
+.newspaper-registration-mark {
+    position: relative;
+    width: 26px; /* Standard size */
+    height: 26px;
+    border: 1px solid rgba(26, 26, 26, 0.5); /* Circle border */
+    border-radius: 50%; /* Perfect circle */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.75rem; /* Space from adjacent content */
+}
+
+/**
+ * Registration Mark Crosshairs
+ * - Horizontal and vertical lines through center
+ * - Traditional printing registration design
+ */
+.newspaper-registration-mark::before,
+.newspaper-registration-mark::after {
+    content: '';
+    position: absolute;
+    background: rgba(26, 26, 26, 0.6); /* Crosshair color */
+}
+
+/**
+ * Horizontal Crosshair Line
+ */
+.newspaper-registration-mark::before {
+    width: 70%; /* Extend most of circle width */
+    height: 1px; /* Thin horizontal line */
+}
+
+/**
+ * Vertical Crosshair Line
+ */
+.newspaper-registration-mark::after {
+    height: 70%; /* Extend most of circle height */
+    width: 1px; /* Thin vertical line */
+}
+
+/* Vintage advertisement blocks */
+.newspaper-ad {
+    position: relative;
+    padding: 1.25rem 1.1rem;
+    border: 1px solid rgba(26, 26, 26, 0.6);
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(139, 115, 85, 0.05) 0px,
+        rgba(139, 115, 85, 0.05) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    box-shadow: 1px 1px 0 rgba(26, 26, 26, 0.2);
+    font-family: "Crimson Text", serif;
+    margin-bottom: 1.5rem;
+}
+
+.newspaper-ad::before {
+    content: 'ADVERTISEMENT';
+    position: absolute;
+    top: -0.65rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    background: #faf6f0;
+    padding: 0 0.6rem;
+    border: 1px solid rgba(26, 26, 26, 0.5);
+}
+
+.newspaper-ad-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.newspaper-ad-price {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0.75rem 0;
+}
+
+/* ========================================
+   ADVERTISING & CONTENT DIVIDERS
+   ======================================== */
+
+/**
+ * Advertisement Divider (.newspaper-ad-divider)
+ * - Subtle horizontal rule to separate ad content
+ * - Gradient fade from transparent to visible for soft appearance
+ * - Used between advertisement sections or content blocks
+ */
+.newspaper-ad-divider {
+    height: 1px; /* Thin dividing line */
+    background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.6), transparent);
+    margin: 0.75rem 0; /* Balanced spacing */
+}
+
+/* ========================================
+   FOLIO ELEMENTS & PAGE METADATA
+   ======================================== */
+
+/**
+ * Main Folio Bar (.newspaper-folio)
+ * - Traditional folio containing page metadata
+ * - Flexbox layout for distributed information display
+ * - Small caps typography for formal publication style
+ * - Double-line border effect with gradient accent
+ */
+.newspaper-folio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Spread content across width */
+    gap: 0.75rem; /* Minimum spacing between elements */
+    font-size: 0.75rem; /* Small, unobtrusive text */
+    letter-spacing: 0.12em; /* Extended spacing */
+    text-transform: uppercase; /* All caps for formality */
+    color: rgba(26, 26, 26, 0.75); /* Subtle text color */
+    border-bottom: 1px solid rgba(26, 26, 26, 0.2); /* Primary border */
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    position: relative; /* For pseudo-element positioning */
+}
+
+/**
+ * Folio Accent Line
+ * - Secondary gradient line below main folio
+ * - Creates traditional newspaper folio appearance
+ * - Fades from center outward for elegant effect
+ */
+.newspaper-folio::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; /* Offset below main border */
+    left: 0;
+    right: 0;
+    height: 2px; /* Thicker accent line */
+    background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.4), transparent);
+    opacity: 0.5; /* Subtle appearance */
+}
+
+/* ========================================
+   EDITION & PUBLICATION ELEMENTS
+   ======================================== */
+
+/**
+ * Edition Ribbon (.newspaper-edition-ribbon)
+ * - Prominent banner for edition information (FINAL EDITION, etc.)
+ * - Dark background with light text for high contrast
+ * - Angled ribbon tail created with CSS triangles
+ * - Drop shadow for dimensional appearance
+ */
+.newspaper-edition-ribbon {
+    display: inline-block;
+    background: rgba(26, 26, 26, 0.9); /* Dark ribbon background */
+    color: #faf6f0; /* Light text for contrast */
+    padding: 0.2rem 0.9rem; /* Compact padding */
+    font-size: 0.65rem; /* Small text */
+    letter-spacing: 0.25em; /* Wide letter spacing */
+    text-transform: uppercase; /* All caps */
+    position: relative; /* For ribbon tail */
+    margin-top: 0.75rem;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3); /* Drop shadow */
+}
+
+/**
+ * Edition Ribbon Tail
+ * - Triangular tail using CSS borders
+ * - Creates folded ribbon appearance
+ * - Positioned at right edge of ribbon
+ */
+.newspaper-edition-ribbon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -0.6rem; /* Positioned outside main ribbon */
+    /* CSS triangle using border technique */
+    border-top: 0.6rem solid rgba(26, 26, 26, 0.9);
+    border-bottom: 0.6rem solid rgba(26, 26, 26, 0.9);
+    border-right: 0.6rem solid transparent; /* Creates triangle */
+}
+
+/**
+ * Dateline Box (.newspaper-dateline)
+ * - Boxed element for date and location information
+ * - Light background with subtle border
+ * - Small caps typography for traditional appearance
+ * - Subtle drop shadow for slight elevation
+ */
+.newspaper-dateline {
+    display: inline-block;
+    border: 1px solid rgba(26, 26, 26, 0.4); /* Subtle border */
+    padding: 0.25rem 0.6rem; /* Compact padding */
+    font-size: 0.65rem; /* Small text */
+    letter-spacing: 0.2em; /* Extended spacing */
+    text-transform: uppercase; /* All caps */
+    background: rgba(250, 246, 240, 0.9); /* Light cream background */
+    box-shadow: 1px 1px 0 rgba(26, 26, 26, 0.15); /* Subtle shadow */
+}
+
+/* ========================================
+   SECTION NAVIGATION & LABELS
+   ======================================== */
+
+/**
+ * Section Label Badge (.newspaper-section-label)
+ * - Small label for section identification (NEWS, SPORTS, etc.)
+ * - Bordered box with light background
+ * - Used for content categorization
+ */
+.newspaper-section-label {
+    display: inline-block;
+    font-size: 0.7rem; /* Small label text */
+    letter-spacing: 0.18em; /* Extended spacing */
+    text-transform: uppercase; /* All caps */
+    padding: 0.25rem 0.8rem; /* Balanced padding */
+    border: 1px solid rgba(26, 26, 26, 0.4); /* Clean border */
+    background: rgba(250, 246, 240, 0.8); /* Light background */
+    margin-bottom: 0.55rem; /* Space from content below */
+}
+
+/**
+ * Folio Sides Container (.newspaper-folio-sides)
+ * - Flexible container for side-by-side folio elements
+ * - Used within main folio for organizing multiple elements
+ * - Ensures proper spacing and alignment
+ */
+.newspaper-folio-sides {
+    display: flex;
+    align-items: center; /* Vertical alignment */
+    gap: 0.5rem; /* Consistent spacing between elements */
+}
+
+/* ========================================
+   END OF NEWSPAPER THEME STYLES
+   ======================================== */

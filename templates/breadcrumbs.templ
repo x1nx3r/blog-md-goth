@@ -1,0 +1,33 @@
+package templates
+
+// BreadcrumbItem represents one segment in the breadcrumb trail.
+type BreadcrumbItem struct {
+	Label string
+	Href  string // empty string means current page (no link)
+}
+
+templ Breadcrumbs(items []BreadcrumbItem) {
+	<nav aria-label="Breadcrumb" class="newspaper-text text-xs uppercase tracking-[0.2em] text-gray-600">
+		<ol class="flex items-center space-x-2">
+			for i, item := range items {
+				<li class="flex items-center">
+					if i > 0 {
+						<span class="mx-2 text-gray-400" aria-hidden="true">/</span>
+					}
+					if item.Href != "" {
+						<a
+							href={ templ.SafeURL(item.Href) }
+							class="hover:text-black transition-colors newspaper-smallcaps"
+						>
+							{ item.Label }
+						</a>
+					} else {
+						<span class="newspaper-smallcaps text-gray-800" aria-current="page">
+							{ item.Label }
+						</span>
+					}
+				</li>
+			}
+		</ol>
+	</nav>
+}

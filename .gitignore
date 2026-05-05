@@ -1,0 +1,12 @@
+# Binaries
+bin/
+
+# Generated templ code (regenerated via `templ generate`)
+*_templ.go
+
+# Tailwind output (regenerated via build)
+static/css/tailwind.css
+
+# OS junk
+.DS_Store
+*.swp

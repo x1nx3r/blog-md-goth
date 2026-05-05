@@ -1,0 +1,43 @@
+package templates
+
+import "blog-gotth/internal/posts"
+
+// HighlightCard pairs a post with an editorial label.
+type HighlightCard struct {
+	Post  posts.PostMeta
+	Label string
+}
+
+templ HighlightCards(cards []HighlightCard) {
+	if len(cards) > 0 {
+		<section class="newspaper-ink-specks">
+			<div class="newspaper-separator mb-6"></div>
+			<span class="newspaper-section-label">Also In This Edition</span>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+				for _, card := range cards {
+					<article class="newspaper-slight-tilt newspaper-text">
+						<span class="block text-[0.6rem] uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps mb-2">
+							{ card.Label }
+						</span>
+						<time class="block text-[0.65rem] uppercase tracking-[0.3em] text-gray-600 newspaper-smallcaps mb-2">
+							{ card.Post.DateStr }
+						</time>
+						<a href={ templ.SafeURL("/post/" + card.Post.Slug) } class="block">
+							<h3 class="text-2xl font-bold text-black pb-2 mb-3 newspaper-headline newspaper-vintage-text hover:underline">
+								{ card.Post.Title }
+							</h3>
+						</a>
+						<div class="newspaper-thin-separator mb-3"></div>
+						<p class="markdown-body text-sm text-gray-700 newspaper-tight">{ card.Post.Summary }</p>
+						<a
+							href={ templ.SafeURL("/post/" + card.Post.Slug) }
+							class="inline-block mt-3 text-xs uppercase tracking-[0.3em] text-gray-700 newspaper-ink-underline hover:text-black transition-colors"
+						>
+							Read the full story →
+						</a>
+					</article>
+				}
+			</div>
+		</section>
+	}
+}

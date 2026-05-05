@@ -1,0 +1,113 @@
+package templates
+
+import "blog-gotth/internal/posts"
+
+templ Sidebar(wirePosts []posts.PostMeta) {
+	<aside class="lg:col-span-1 space-y-6">
+		@SidebarBox()
+		if len(wirePosts) > 0 {
+			<div class="newspaper-ink-specks newspaper-text">
+				<div class="newspaper-separator mb-4"></div>
+				<span class="newspaper-section-label">News Wire</span>
+				<ul class="space-y-3 text-sm text-gray-700 newspaper-tight newspaper-text">
+					for _, post := range wirePosts {
+						<li class="border-b border-dashed border-gray-300 pb-2 last:border-none last:pb-0">
+							<a href={ templ.SafeURL("/post/" + post.Slug) } class="flex flex-col gap-1 hover:text-black transition-colors">
+								<span class="text-xs uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps">
+									{ post.DateStr }
+								</span>
+								<span class="font-semibold text-black newspaper-headline text-base">{ post.Title }</span>
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		} else {
+			<div class="newspaper-ink-specks newspaper-text">
+				<div class="newspaper-separator mb-4"></div>
+				<span class="newspaper-section-label">News Wire</span>
+				<p class="markdown-body text-xs text-gray-700 newspaper-tight">
+					Telegraph lines are quiet tonight. Drop the editor a note if you have a scoop worth printing.
+				</p>
+			</div>
+		}
+		<div class="newspaper-ad newspaper-ink-specks">
+			<div class="newspaper-ad-heading">Developer For Hire</div>
+			<div class="newspaper-ad-divider"></div>
+			<p class="text-xs uppercase tracking-widest text-gray-700 newspaper-smallcaps newspaper-text">
+				Full-Stack Development &bull; Cloud Solutions &bull; DevOps Expertise
+			</p>
+			<div class="newspaper-ad-price">$15<span class="text-base">/hour</span></div>
+			<p class="text-sm newspaper-tight newspaper-text">
+				<strong>Specializing in:</strong> Go, HTMX, Next.js, React, Node.js, Python, TypeScript, Docker, Firebase, Cloudflare &amp; Linux systems.
+			</p>
+			<div class="newspaper-ad-divider mt-3"></div>
+			<p class="text-xs newspaper-tight newspaper-text">
+				Ready to tackle your next project. Contact through <span class="newspaper-ink-underline">GitHub</span> or direct mail above.
+			</p>
+		</div>
+	</aside>
+}
+
+// SocialLink for the sidebar contacts section.
+type SocialLink struct {
+	Label string
+	Href  string
+	// SVG icon rendered inline since we can't use react-icons
+	Icon  string
+}
+
+var socialLinks = []SocialLink{
+	{Label: "GitHub", Href: "https://github.com/x1nx3r", Icon: "github"},
+	{Label: "LinkedIn", Href: "https://www.linkedin.com/in/mega-nugraha/", Icon: "linkedin"},
+	{Label: "Hugging Face", Href: "https://huggingface.co/x1nx3r", Icon: "huggingface"},
+	{Label: "Instagram", Href: "https://www.instagram.com/x1nx3r/", Icon: "instagram"},
+	{Label: "Email", Href: "mailto:monmega110@gmail.com", Icon: "email"},
+}
+
+var techStack = []string{
+	"Go", "HTMX", "React", "Node.js", "Python",
+	"TypeScript", "Docker", "Firebase", "Cloudflare", "Linux",
+}
+
+templ SidebarBox() {
+	<aside class="space-y-8 text-sm newspaper-text newspaper-vintage-text">
+		<section class="newspaper-ink-specks">
+			<span class="newspaper-section-label">My Socials</span>
+			<ul class="space-y-3">
+				for _, link := range socialLinks {
+					<li class="flex items-center justify-between border-b border-dashed border-gray-300 pb-2 last:border-none">
+						<a
+							href={ templ.SafeURL(link.Href) }
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex items-center gap-3 hover:text-black transition-colors newspaper-smallcaps tracking-[0.3em] text-gray-700 newspaper-text"
+						>
+							{ link.Label }
+						</a>
+						<a
+							href={ templ.SafeURL(link.Href) }
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-[0.65rem] uppercase tracking-[0.3em] text-gray-500 newspaper-smallcaps hover:text-black transition-colors"
+						>
+							Open
+						</a>
+					</li>
+				}
+			</ul>
+		</section>
+		<section class="newspaper-ink-specks">
+			<span class="newspaper-section-label">Tech Stacks</span>
+			<div class="grid grid-cols-2 gap-3">
+				for _, tech := range techStack {
+					<div class="flex items-center gap-3 px-1 py-2 text-gray-700 newspaper-text newspaper-vintage-text">
+						<span class="text-xs uppercase tracking-[0.2em] newspaper-smallcaps">
+							{ tech }
+						</span>
+					</div>
+				}
+			</div>
+		</section>
+	</aside>
+}

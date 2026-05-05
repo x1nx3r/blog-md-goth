@@ -1,0 +1,15 @@
+package templates
+
+templ NewspaperFolio(publicationName string, date string, volume string, editionNumber string) {
+	<div class="newspaper-folio newspaper-ink-specks">
+		<div class="newspaper-folio-sides">
+			<span class="newspaper-smallcaps">{ publicationName }</span>
+			<span class="newspaper-registration-mark"></span>
+		</div>
+		<span class="newspaper-smallcaps">{ date }</span>
+		<div class="newspaper-folio-sides">
+			<span class="newspaper-smallcaps">{ volume }</span>
+			<span class="newspaper-smallcaps">No. { editionNumber }</span>
+		</div>
+	</div>
+}

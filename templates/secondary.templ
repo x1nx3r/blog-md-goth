@@ -1,0 +1,27 @@
+package templates
+
+import "blog-gotth/internal/posts"
+
+templ SecondaryFeature(post posts.PostMeta) {
+	<article class="newspaper-ink-specks newspaper-text">
+		<div class="newspaper-separator mb-5"></div>
+		<span class="newspaper-section-label">Second Lead</span>
+		<time class="block text-[0.65rem] uppercase tracking-[0.3em] text-gray-600 newspaper-smallcaps">
+			{ post.DateStr }
+		</time>
+		<a href={ templ.SafeURL("/post/" + post.Slug) } class="block group mt-3">
+			<h3 class="text-3xl font-bold text-black leading-snug newspaper-headline newspaper-vintage-text group-hover:underline">
+				{ post.Title }
+			</h3>
+		</a>
+		<p class="markdown-body text-sm sm:text-base text-gray-700 newspaper-tight leading-relaxed mt-3">
+			{ post.Summary }
+		</p>
+		<a
+			href={ templ.SafeURL("/post/" + post.Slug) }
+			class="inline-block mt-4 text-xs uppercase tracking-[0.3em] text-gray-700 newspaper-ink-underline hover:text-black transition-colors"
+		>
+			Read the full report →
+		</a>
+	</article>
+}

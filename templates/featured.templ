@@ -1,0 +1,60 @@
+package templates
+
+import "blog-gotth/internal/posts"
+
+templ FeaturedArticle(post posts.Post) {
+	<article
+		class="pr-0 lg:pr-8 newspaper-slight-tilt newspaper-ink-specks"
+		style="border-right: 1px solid rgba(107, 107, 107, 0.3)"
+	>
+		<div class="flex items-center justify-center gap-4">
+			<span class="newspaper-section-label">Late Final Edition</span>
+			<span class="flex-1"></span>
+			if post.DateStr != "" {
+				<time class="flex items-center text-[1rem] uppercase tracking-[0.35em] text-gray-600 newspaper-smallcaps pb-2">
+					{ post.DateStr }
+				</time>
+			}
+		</div>
+		<a href={ templ.SafeURL("/post/" + post.Slug) } class="group block mt-3">
+			<h2 class="text-4xl sm:text-5xl font-bold text-black leading-tight newspaper-headline newspaper-vintage-text group-hover:underline">
+				{ post.Title }
+			</h2>
+		</a>
+		<p class="newspaper-deck newspaper-tight mt-4">{ post.Summary }</p>
+		<div class="newspaper-separator mt-5"></div>
+		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns">
+			<div class="text-sm md:text-base newspaper-tight">
+				@templ.Raw(post.HTML)
+			</div>
+		</div>
+		<a
+			href={ templ.SafeURL("/post/" + post.Slug) }
+			class="inline-block mt-4 text-xs uppercase tracking-[0.3em] text-gray-700 newspaper-ink-underline hover:text-black transition-colors"
+		>
+			Continue reading the full dispatch →
+		</a>
+	</article>
+}
+
+templ FeaturedArticleEmpty() {
+	<article
+		class="pr-0 lg:pr-8 newspaper-slight-tilt newspaper-ink-specks"
+		style="border-right: 1px solid rgba(107, 107, 107, 0.3)"
+	>
+		<h2 class="text-4xl sm:text-5xl font-bold text-black leading-tight newspaper-headline newspaper-vintage-text mt-3">
+			Presses Idle Awaiting Copy
+		</h2>
+		<p class="newspaper-deck newspaper-tight mt-4">
+			The newsroom is still typesetting the next big scoop. Return shortly for freshly inked pages.
+		</p>
+		<div class="newspaper-separator mt-5"></div>
+		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns">
+			<div class="text-sm md:text-base newspaper-tight">
+				<p>The newsroom is currently polishing the lead plates and preparing copy for the next circulation.</p>
+				<p>While the editors wrestle with typesetting, the archive remains open for perusal and the suggestion box welcomes telegrams.</p>
+				<p>Check back soon as the presses whirl back to life with freshly inked stories.</p>
+			</div>
+		</div>
+	</article>
+}

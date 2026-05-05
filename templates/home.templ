@@ -1,0 +1,99 @@
+package templates
+
+import "blog-gotth/internal/posts"
+import "fmt"
+
+templ HomePage(allPosts []posts.Post, folioDate string, editionNumber string) {
+	@Layout(SEO{
+		Title:       "Mega Nugraha - Developer & Problem Creator",
+		Description: "Personal blog and portfolio of Mega Nugraha. Dispatches from experiments, exploits, and the occasional wanders.",
+		SiteName:    "Mega Nugraha's Blog",
+		Author:      "Mega Nugraha",
+		URL:         "https://x1nx3r.dev",
+	}) {
+		<div class="min-h-screen newspaper-paper-with-bg newspaper-aged">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10 newspaper-page-curl">
+				@NewspaperFolio("The Subpar Dev Press", folioDate, "Vol. II", editionNumber)
+				<section class="text-center newspaper-slight-tilt newspaper-ink-specks space-y-2">
+					@Header()
+				</section>
+				// Topline news (posts 1-3)
+				if len(allPosts) > 1 {
+					@ToplineNews(metaSlice(allPosts, 1, 4))
+				}
+				<div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+					<main class="lg:col-span-3 space-y-8">
+						// Featured article (post 0)
+						if len(allPosts) > 0 {
+							@FeaturedArticle(allPosts[0])
+						} else {
+							@FeaturedArticleEmpty()
+						}
+						// Secondary feature (post 4)
+						if len(allPosts) > 4 {
+							@SecondaryFeature(allPosts[4].ToMeta())
+						}
+						// Spotlight grid (posts 5-7)
+						if len(allPosts) > 5 {
+							@SpotlightGrid(metaSlice(allPosts, 5, 8))
+						}
+					</main>
+					// Sidebar with wire posts (posts 11+)
+					@Sidebar(metaSlice(allPosts, 11, len(allPosts)))
+				</div>
+				// Highlight cards (posts 8-10)
+				if len(allPosts) > 8 {
+					@HighlightCards(buildHighlightCards(allPosts))
+				}
+				<footer class="text-center pt-4 text-xs text-gray-600 newspaper-faded newspaper-ink-specks">
+					<div class="newspaper-thin-separator mb-4"></div>
+					<div class="flex flex-col items-center gap-2">
+						<div class="newspaper-folio-sides">
+							<span class="newspaper-smallcaps">Printed on Recycled Electrons</span>
+							<span class="newspaper-registration-mark"></span>
+							<span class="newspaper-smallcaps">Edition { editionNumber }</span>
+						</div>
+						<div>
+							{ fmt.Sprintf("© %d The Wandering Mind • All Rights Reserved • No AI was harmed in the making of this newspaper", currentYear()) }
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	}
+}
+
+// helper to slice posts into PostMeta, clamping bounds
+func metaSlice(pp []posts.Post, start, end int) []posts.PostMeta {
+	if start >= len(pp) {
+		return nil
+	}
+	if end > len(pp) {
+		end = len(pp)
+	}
+	out := make([]posts.PostMeta, 0, end-start)
+	for _, p := range pp[start:end] {
+		out = append(out, p.ToMeta())
+	}
+	return out
+}
+
+func buildHighlightCards(pp []posts.Post) []HighlightCard {
+	labels := []string{"Global Dispatch", "Culture Desk", "Lab Report"}
+	var cards []HighlightCard
+	for i := 8; i < len(pp) && i < 11; i++ {
+		label := "Spotlight"
+		if i-8 < len(labels) {
+			label = labels[i-8]
+		}
+		cards = append(cards, HighlightCard{
+			Post:  pp[i].ToMeta(),
+			Label: label,
+		})
+	}
+	return cards
+}
+
+func currentYear() int {
+	return 2026 // or time.Now().Year() if you want dynamic
+}
