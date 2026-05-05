@@ -1,11 +1,11 @@
 # Binaries
 bin/
 
-# Generated templ code (regenerated via `templ generate`)
-*_templ.go
+# Generated templ code (Keep these for Vercel build)
+# *_templ.go
 
-# Tailwind output (regenerated via build)
-static/css/tailwind.css
+# Tailwind output (Keep this for Vercel build)
+# static/css/tailwind.css
 
 # OS junk
 .DS_Store
