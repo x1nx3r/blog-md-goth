@@ -93,7 +93,7 @@ func FeaturedArticle(post posts.Post) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</p><div class=\"newspaper-separator mt-5\"></div><div class=\"markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns\"><div class=\"text-sm md:text-base newspaper-tight\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</p><div class=\"newspaper-separator mt-5\"></div><div class=\"markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns text-sm md:text-base newspaper-tight\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -101,14 +101,14 @@ func FeaturedArticle(post posts.Post) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div></div><a href=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div><a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 templ.SafeURL
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/post/" + post.Slug))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/featured.templ`, Line: 32, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/featured.templ`, Line: 30, Col: 45}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -143,7 +143,7 @@ func FeaturedArticleEmpty() templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<article class=\"pr-0 lg:pr-8 newspaper-slight-tilt newspaper-ink-specks\" style=\"border-right: 1px solid rgba(107, 107, 107, 0.3)\"><h2 class=\"text-4xl sm:text-5xl font-bold text-black leading-tight newspaper-headline newspaper-vintage-text mt-3\">Presses Idle Awaiting Copy</h2><p class=\"newspaper-deck newspaper-tight mt-4\">The newsroom is still typesetting the next big scoop. Return shortly for freshly inked pages.</p><div class=\"newspaper-separator mt-5\"></div><div class=\"markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns\"><div class=\"text-sm md:text-base newspaper-tight\"><p>The newsroom is currently polishing the lead plates and preparing copy for the next circulation.</p><p>While the editors wrestle with typesetting, the archive remains open for perusal and the suggestion box welcomes telegrams.</p><p>Check back soon as the presses whirl back to life with freshly inked stories.</p></div></div></article>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<article class=\"pr-0 lg:pr-8 newspaper-slight-tilt newspaper-ink-specks\" style=\"border-right: 1px solid rgba(107, 107, 107, 0.3)\"><h2 class=\"text-4xl sm:text-5xl font-bold text-black leading-tight newspaper-headline newspaper-vintage-text mt-3\">Presses Idle Awaiting Copy</h2><p class=\"newspaper-deck newspaper-tight mt-4\">The newsroom is still typesetting the next big scoop. Return shortly for freshly inked pages.</p><div class=\"newspaper-separator mt-5\"></div><div class=\"markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns text-sm md:text-base newspaper-tight\"><p>The newsroom is currently polishing the lead plates and preparing copy for the next circulation.</p><p>While the editors wrestle with typesetting, the archive remains open for perusal and the suggestion box welcomes telegrams.</p><p>Check back soon as the presses whirl back to life with freshly inked stories.</p></div></article>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -23,10 +23,8 @@ templ FeaturedArticle(post posts.Post) {
 		</a>
 		<p class="newspaper-deck newspaper-tight mt-4">{ post.Summary }</p>
 		<div class="newspaper-separator mt-5"></div>
-		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns">
-			<div class="text-sm md:text-base newspaper-tight">
-				@templ.Raw(post.HTML)
-			</div>
+		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns text-sm md:text-base newspaper-tight">
+			@templ.Raw(post.HTML)
 		</div>
 		<a
 			href={ templ.SafeURL("/post/" + post.Slug) }
@@ -49,12 +47,10 @@ templ FeaturedArticleEmpty() {
 			The newsroom is still typesetting the next big scoop. Return shortly for freshly inked pages.
 		</p>
 		<div class="newspaper-separator mt-5"></div>
-		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns">
-			<div class="text-sm md:text-base newspaper-tight">
-				<p>The newsroom is currently polishing the lead plates and preparing copy for the next circulation.</p>
-				<p>While the editors wrestle with typesetting, the archive remains open for perusal and the suggestion box welcomes telegrams.</p>
-				<p>Check back soon as the presses whirl back to life with freshly inked stories.</p>
-			</div>
+		<div class="markdown-body columns-1 md:columns-2 gap-8 text-justify leading-relaxed newspaper-text newspaper-vintage-text newspaper-columns text-sm md:text-base newspaper-tight">
+			<p>The newsroom is currently polishing the lead plates and preparing copy for the next circulation.</p>
+			<p>While the editors wrestle with typesetting, the archive remains open for perusal and the suggestion box welcomes telegrams.</p>
+			<p>Check back soon as the presses whirl back to life with freshly inked stories.</p>
 		</div>
 	</article>
 }
