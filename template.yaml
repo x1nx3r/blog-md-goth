@@ -1,0 +1,11 @@
+apiVersion: manus-dei/v2
+name: blog-md-goth
+environment:
+  profile: go
+  version: "2026.11"
+workspace: template
+opencode:
+  mode: connect
+  model: opencode/deepseek-v4.1-flash
+install:
+  - go mod download
